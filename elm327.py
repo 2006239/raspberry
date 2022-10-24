@@ -1,31 +1,33 @@
-import os
-import sys
-import subprocess
+import obd
+#from obd import OBDCommand, Unit
+#from obd.protocols import ECU
+#from obd.utils import bytes_to_int
 
+connection = obd.OBD() # auto-connects to USB or RF port
 
-resultsfile=open('results.txt', 'wt')
+cmd = obd.commands.SPEED # select an OBD command (sensor)
+response = connection.query(cmd) # send the command, and parse the response
+print(response.value) # returns unit-bearing values thanks to Pint
 
-skiplist=['ex_template', 'helpers']
+cmd = obd.commands.THROTTLE_POS
+response=connection.query(cmd)
+print(response.value)
 
-for file in os.listdir('.'):
-    if file in skiplist:
-        continue
-    if os.path.isdir(file):
-        cmdline='"'+sys.executable+'" test.py'
-        print(cmdline)
-        #rc=os.system(cmdline)
-        #print('#', rc)
-        rc=subprocess.call(cmdline, shell=True, cwd=file)
-        #print('#', rc)
-        try:
-            exresfile=open(file+'/tests/result.txt', 'rt')
-            res=exresfile.read()
-            #print('#',res)
-            resultsfile.write(file+'\t'+res+'\n')
-            exresfile.close()
-        except:
-            #Result file not found
-            resultsfile.write(file+'\t'+'0\t0\n')
-            pass
+#cmd = obd.commands.RUN_TIME
+#cmd = obd.commands.ELM_VERSION
+#cmd = obd.commands.
 
-resultsfile.close()
+#def odo(messages):
+#    """ decoder for Odometer messages """
+#    d = messages[0].data # only operate on a single message
+#    d = d[2:] # chop off mode and PID bytes
+#    v = bytes_to_int(d) / 4.0  # helper function for converting byte arrays to ints
+#    return v * Unit.KM # construct a Pint Quantity
+
+#c = OBDCommand("ODO", "Odometer", b"01A6", 4, uas(0x25), ECU.ENGINE, True)
+#o = obd.OBD()
+
+# use the `force` parameter when querying
+#response = o.query(c, force=True)
+#print(response.value)
+connection.close()
