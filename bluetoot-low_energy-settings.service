@@ -1,0 +1,13 @@
+[Unit]
+Description=Automatically connect to available bluettooth devices from config
+
+[Service]
+WorkingDirectory=/home/riveria/elm327/raspberry/ble-serial/helper/
+Environment=PATH=/home/riveria/elm327/raspberry/ble-serial/ble-venv/bin/:/usr/bin
+ExecStartPre=/home/riveria/elm327/raspberry/elm327BLE.sh
+ExecStart=/home/riveria/elm327/raspberry/ble-serial/ble-venv/bin/python ble-autoconnect.py
+Restart=on-failure
+RestartSec=30s
+
+[Install]
+WantedBy=default.target
