@@ -1,0 +1,4 @@
+[console_scripts]
+ble-scan = ble_serial.scan.main:launch
+ble-serial = ble_serial.main:launch
+
