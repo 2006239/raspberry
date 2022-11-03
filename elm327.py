@@ -3,7 +3,7 @@ import obd
 #from obd.protocols import ECU
 #from obd.utils import bytes_to_int
 
-connection = obd.OBD() # auto-connects to USB or RF port
+connection = obd.OBD("/tmp/ttyBLE") # auto-connects to USB or RF port
 
 cmd = obd.commands.SPEED # select an OBD command (sensor)
 response = connection.query(cmd) # send the command, and parse the response
