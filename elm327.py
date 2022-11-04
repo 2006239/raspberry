@@ -4,7 +4,7 @@ import obd
 #from obd.utils import bytes_to_int
 #OBD(portstr=None, baudrate=None, protocol=None, fast=True, timeout=0.1, check_voltage=True):
 #connection = obd.OBD("/tmp/ttyBLE") # auto-connects to USB or RF port
-connection = obd.OBD("/tmp/ttyBLE", baudrate=38400,protocol="6", fast=False, timeout=40)
+connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=False, timeout=30)
 
 cmd = obd.commands.SPEED # select an OBD command (sensor)
 response = connection.query(cmd) # send the command, and parse the response
