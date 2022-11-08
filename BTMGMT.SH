@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep 15
 sudo btmgmt power off;
 sudo btmgmt discov on;
 sudo btmgmt le on;

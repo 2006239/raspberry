@@ -24,6 +24,23 @@ def yhteys(elmjono):
             cmd = obd.commands.THROTTLE_POS
             response = connection.query(cmd)
             elmjono.put(response.value)
+
+            cmd = obd.commands.RPM
+            response = connection.query(cmd)
+            elmjono.put(response.value)
+
+            cmd = obd.commands.FUEL_RATE
+            response = connection.query(cmd)
+            elmjono.put(response.value)
+
+            cmd = obd.commands.RUNTIME
+            response = connection.query(cmd)
+            elmjono.put(response.value)
+
+            cmd = obd.commands.ODO_METER
+            response = connection.query(cmd)
+            elmjono.put(response.value)
+
             suoritukset += 2
             kesto = time.time_ns()
     except Exception as msg:
@@ -39,13 +56,14 @@ def tulosta(kirjoitusjono, tiedosto):
                 if merkkijono is None:
                     break
                 else:
-                    tiedostopolku.write(merkkijono)
+                    tiedostopolku.write(f"{merkkijono};\n")
+
     except Exception as msg:
         print('Tiedostoon tallentaminen epäonnistui ' + str(msg))
 
 
 obd.logger.setLevel(obd.logging.DEBUG)
-connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=True, timeout=10)
+connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=False, timeout=5)
 jono = queue.Queue()
 aika = 1000000000
 suoritukset = 0
