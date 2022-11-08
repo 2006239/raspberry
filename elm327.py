@@ -1,3 +1,4 @@
+import queue
 import obd
 import time
 # from obd import OBDCommand, Unit
@@ -10,7 +11,7 @@ import time
 from threading import Thread
 
 
-def yhteys():
+def yhteys(elmjono):
     global suoritukset, aika, connection
     kesto = 0
     aloitus = time.time_ns()
@@ -18,32 +19,50 @@ def yhteys():
         while connection.is_connected() and (kesto - aloitus) <= aika:
             cmd = obd.commands.SPEED  # select an OBD command (sensor)
             response = connection.query(cmd)  # send the command, and parse the response
-            print(response.value)  # returns unit-bearing values thanks to Pint
+            elmjono.put(response.value)  # returns unit-bearing values thanks to Pint
 
             cmd = obd.commands.THROTTLE_POS
             response = connection.query(cmd)
-            print(response.value)
+            elmjono.put(response.value)
             suoritukset += 2
             kesto = time.time_ns()
     except Exception as msg:
         aika = kesto-aloitus
-        print('yhteys on suljettu ', msg)
+        print('yhteys on suljettu ' + str(msg))
+
+
+def tulosta(kirjoitusjono, tiedosto):
+    try:
+        with open(tiedosto, 'a') as tiedostopolku:
+            while True:
+                merkkijono = kirjoitusjono.get(block=False)
+                if merkkijono is None:
+                    break
+                else:
+                    tiedostopolku.write(merkkijono)
+    except Exception as msg:
+        print('Tiedostoon tallentaminen epäonnistui ' + str(msg))
 
 
 obd.logger.setLevel(obd.logging.DEBUG)
 connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=True, timeout=10)
+jono = queue.Queue()
 aika = 1000000000
 suoritukset = 0
-lukeminen = Thread(target=yhteys())
-yhteys.daemon = True
+lukeminen = Thread(target=yhteys(jono))
+kirjoittaminen = Thread(target=tulosta(jono, "elm327.txt"))
+lukeminen.daemon = True
+kirjoittaminen.daemon = True
 lukeminen.start()
+kirjoittaminen.start()
 try:
     input('CTRL – C to quit.')
 except KeyboardInterrupt:
     pass
-print(aika/1000000000, ' s >', suoritukset, ' datan lukemista')
-lukeminen.join()
+print(aika/1000000000, ' s =', suoritukset, ' datan lukemista')
 connection.close()
+lukeminen.join()
+kirjoittaminen.join()
 
 # cmd = obd.commands.RUN_TIME
 # cmd = obd.commands.ELM_VERSION
