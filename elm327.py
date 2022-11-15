@@ -33,15 +33,15 @@ def yhteys(elmjono):
             response = connection.query(cmd)
             elmjono.put(response.value)
 
-            cmd = obd.commands.RUNTIME
-            response = connection.query(cmd)
-            elmjono.put(response.value)
+            # cmd = obd.commands.RUNTIME
+            # response = connection.query(cmd)
+            # elmjono.put(response.value)
 
-            cmd = obd.commands.ODO_METER
-            response = connection.query(cmd)
-            elmjono.put(response.value)
+            # cmd = obd.commands.ODO_METER
+            # response = connection.query(cmd)
+            # elmjono.put(response.value)
 
-            suoritukset += 2
+            suoritukset += 4
             kesto = time.time_ns()
     except Exception as msg:
         aika = kesto-aloitus
@@ -59,13 +59,13 @@ def tulosta(kirjoitusjono, tiedosto):
                     tiedostopolku.write(f"{merkkijono};\n")
 
     except Exception as msg:
-        print('Tiedostoon tallentaminen epäonnistui ' + str(msg))
+        print('Tiedostoon tallentaminen loppui')
 
 
 obd.logger.setLevel(obd.logging.DEBUG)
 connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=False, timeout=5)
 jono = queue.Queue()
-aika = 1000000000
+aika = 10000000000
 suoritukset = 0
 lukeminen = Thread(target=yhteys(jono))
 kirjoittaminen = Thread(target=tulosta(jono, "elm327.txt"))
@@ -74,7 +74,7 @@ kirjoittaminen.daemon = True
 lukeminen.start()
 kirjoittaminen.start()
 try:
-    input('CTRL – C to quit.')
+    input('CTRL - C to quit.')
 except KeyboardInterrupt:
     pass
 print(aika/1000000000, ' s =', suoritukset, ' datan lukemista')
