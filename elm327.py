@@ -4,6 +4,7 @@ import time
 from obd import OBDCommand, Unit
 from obd.protocols import ECU
 from obd.utils import bytes_to_int
+from gpsdclient import GPSDClient
 # OBD(portstr=None, baudrate=None, protocol=None, fast=True, timeout=0.1, check_voltage=True):
 # connection = obd.OBD("/tmp/ttyBLE") # auto-connects to USB or RF port
 # global connection,  aika, suoritukset
@@ -23,6 +24,12 @@ ODO = OBDCommand("ODO", "Odometer", b"01A6", 4, odo, ECU.ENGINE, True)
 # use the `force` parameter when querying
 # response = o.query(c, force=True)
 # print(response.value)
+
+def gps(elmjono):
+    client = GPSDClient(host="127.0.0.1")
+    for result in client.dict_stream(convert_datetime=True, filter=["TPV"]):
+        elmjono.put("<time> %s" % result.get("time", "") + "{ lat: %s" % result.get("lat", "") + ", long: %s }" % result.get("lon", "") + "</time>")
+
 
 
 def yhteys(elmjono):
@@ -79,12 +86,15 @@ def tulosta(kirjoitusjono, tiedosto):
 obd.logger.setLevel(obd.logging.DEBUG)
 connection = obd.OBD("/tmp/ttyBLE", baudrate=None, protocol=None, fast=False, timeout=5)
 jono = queue.Queue()
-aika = 10000000000
+aika = 10000000000*6
 suoritukset = 0
+gpsLukeminen = Thread(target=gps(jono))
 lukeminen = Thread(target=yhteys(jono))
 kirjoittaminen = Thread(target=tulosta(jono, "elm327.txt"))
+gpsLukeminen.daemon = True
 lukeminen.daemon = True
 kirjoittaminen.daemon = True
+gpsLukeminen.start()
 lukeminen.start()
 kirjoittaminen.start()
 try:
@@ -93,6 +103,7 @@ except KeyboardInterrupt:
     pass
 print(aika/1000000000, ' s =', suoritukset, ' datan lukemista')
 connection.close()
+gpsLukeminen.join()
 lukeminen.join()
 kirjoittaminen.join()
 
