@@ -11,25 +11,27 @@ from gpsdclient import GPSDClient
 
 from threading import Thread
 
+
 def odo(messages):
-#    """ decoder for Odometer messages """
-    d = messages[0].data # only operate on a single message
-    d = d[2:] # chop off mode and PID bytes
+    #    """ decoder for Odometer messages """
+    d = messages[0].data  # only operate on a single message
+    d = d[2:]  # chop off mode and PID bytes
     v = bytes_to_int(d) / 4.0  # helper function for converting byte arrays to ints
-    return v * Unit.KM # construct a Pint Quantity
+    return v * Unit.KM  # construct a Pint Quantity
+
 
 ODO = OBDCommand("ODO", "Odometer", b"01A6", 4, odo, ECU.ENGINE, True)
-#o = obd.OBD()
+#  o = obd.OBD()
 
 # use the `force` parameter when querying
 # response = o.query(c, force=True)
 # print(response.value)
 
+
 def gps(elmjono):
     client = GPSDClient(host="127.0.0.1")
-    for result in client.dict_stream(convert_datetime=True, filter=["TPV"]):
+    for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         elmjono.put("<time> %s" % result.get("time", "") + "{ lat: %s" % result.get("lat", "") + ", long: %s }" % result.get("lon", "") + "</time>")
-
 
 
 def yhteys(elmjono):
