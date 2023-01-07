@@ -1,0 +1,78 @@
+<accelerometer>
+<x> 0.473 </x>
+<y> -0.752 </y>
+<z> 0.458 </z>
+</accelerometer>
+<speed>0.0 kph</speed>
+<cycle>
+<time> 05.01.2023 18:49:19 </time>
+<gps>
+<lat> 62.620313518 </lat>
+<lon> 29.783862468 </lon>
+</gps>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+<speed>0.0 kph</speed>
+<accelerometer>
+<x> 0.457 </x>
+<y> -0.804 </y>
+<z> 0.446 </z>
+</accelerometer>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+</cycle>
+<cycle>
+<time> 05.01.2023 18:49:20 </time>
+<gps>
+<lat> 62.620313518 <\lat>
+<lon> 29.783862468 <\lon>
+</gps>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+<speed>0.0 kph</speed>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+<accelerometer>
+<x> 0.443 </x>
+<y> -0.754 </y>
+<z> 0.448 </z>
+</accelerometer>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+<speed>0.0 kph</speed>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+</cycle>
+<cycle>
+<time> 05.01.2023 18:49:21 </time>
+<gps>
+<lat> 62.620313518 <\lat>
+<lon> 29.783862468 <\lon>
+</gps>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+<accelerometer>
+<x> 0.450 </x>
+<y> -0.771 </y>
+<z> 0.440 </z>
+</accelerometer>
+<speed>0.0 kph</speed>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+</cycle>
+<cycle>
+<time> 05.01.2023 18:49:22 </time>
+<gps>
+<lat> 62.620313518 <\lat>
+<lon> 29.783862468 <\lon>
+</gps>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+<speed>0.0 kph</speed>
+<accelerometer>
+<x> 0.455 </x>
+<y> -0.770 </y>
+<z> 0.454 </z>
+</accelerometer>
+<throttle_pos>43.92156862745098 percent</throttle_pos>
+<fuel_rate>0.6000000000000001 lph</fuel_rate>
+</cycle>
+<cycle>
+<time> 05.01.2023 18:49:23 </time>
+<gps>
+<lat> 62.620313518 <\lat>
+<lon> 29.783862468 <\lon>
+</gps>
+<speed>0.0 kph</speed>

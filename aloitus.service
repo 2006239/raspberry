@@ -1,0 +1,10 @@
+[Unit]
+Description=Run python during system start
+After=BluetoothBLE-settings.service
+
+[Service]
+WorkingDirectory=/home/riveria/elm327/raspberry/
+ExecStart=/home/riveria/elm327/raspberry/python elm327.py
+
+[Install]
+WantedBy=bluetooth.target
