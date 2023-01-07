@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=buttonGUI
+WorkingDirectory=/home/riveria/elm327/raspberry/
+Environment=PATH=/home/riveria/elm327/raspberry/ble-serial/ble-venv/bin/:/usr/bin
+Exec=/home/riveria/elm327/raspberry/python elm327.py
+
