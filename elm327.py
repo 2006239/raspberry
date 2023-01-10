@@ -133,7 +133,7 @@ def close_window():
 def aloita_lopeta():
     laskuri = 0
     if button["text"] == "Aloita":
-        aja(button)
+        aja()
         button.config(text="Lopeta", fg="red", state="normal")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
