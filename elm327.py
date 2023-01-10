@@ -101,8 +101,8 @@ def tulosta(kirjoitusjono, tiedosto, event):
         print('Tiedostoon tallentaminen loppui', msg)
 
 
-def aja(button):
-    global connection, gpslukeminen, acceleroloop,elm327,kirjoittaminen,event, GPSstatus
+def aja():
+    global connection,gpslukeminen,acceleroloop,elm327,kirjoittaminen,event,GPSstatus
     obd.logger.setLevel(obd.logging.DEBUG)
     connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
@@ -134,7 +134,6 @@ def aloita_lopeta():
     laskuri = 0
     if button["text"] == "Aloita":
         aja(button)
-        button.congig(text="Odoto: 0", state="disabled")
         button.config(text="Lopeta", fg="red", state="normal")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
