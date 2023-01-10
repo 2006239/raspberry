@@ -154,9 +154,9 @@ laskuri = 0;
 
 while gpsyhteys is False:
     laskuri = laskuri + 1;
-    button(text=str(laskuri))
+    button.pack(text=str(laskuri))
     time.sleep(1)
 
-button(state="normal")
+button.pack(state="normal")
 
 
