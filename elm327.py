@@ -134,11 +134,12 @@ def aloita_lopeta():
     laskuri = 0
     if button["text"] == "Aloita":
         aja()
+        button.congig(text="Odoto: 0", state="disabled")
         while gpsyhteys is False:
             laskuri = laskuri + 1
-            button.congig(text="Yhdistetään" + str(laskuri), state="disabled")
             time.sleep(1)
-        button.config(text="Lopeta", fg="red")
+            button.config(text=("Odota: "+laskuri))
+        button.config(text="Lopeta", fg="red", state="normal")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
