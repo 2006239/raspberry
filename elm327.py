@@ -140,7 +140,7 @@ def aloita_lopeta():
 
 
 if gpsyhteys is False:
-    button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey", state=DISABLED)
+    button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey", state="disabled")
 elif gpsyhteys is True:
     button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
 button.pack()
@@ -149,12 +149,14 @@ window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
 window.geometry("400x400")
 # window.attributes('-fullscreen', True)
 window.configure(bg="seashell")
+window.mainloop()
 laskuri = 0;
+
 while gpsyhteys is False:
     laskuri = laskuri + 1;
-    button.config(text=str(laskuri))
+    button(text=str(laskuri))
     time.sleep(1)
-button(state=NORMAL)
-window.mainloop()
+
+button(state="normal")
 
 
