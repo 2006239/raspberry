@@ -13,17 +13,20 @@ import multiprocessing
 from multiprocessing import Queue
 from multiprocessing import Event
 tiedosto = "testi01.txt"
-tosi = False
+ekasuoritus = False
+gpsyhteys = False
 window = Tk()
 
 def gps(elmjono, event):
-    tosi = True
+    ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
-        if tosi is True:
+        if result.get("mode", "") == "3":
+            gpsyhteys = True
+        if ekasuoritus is True and gpsyhteys is True:
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
-            tosi = False
-        else:
+            ekasuoritus = False
+        elif gpsyhteys is True:
             elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " <\lat>\n<lon> %s" % result.get("lon", "") + " <\lon>\n</gps>")
         if event.is_set():
             break
@@ -52,7 +55,7 @@ def accelerometer(elmjono, event):
         time.sleep(1)
 
 def yhteys(elmjono, event):
-    global connection
+    # global connection
     # try:
     while connection.is_connected():  # and (kesto - aloitus) <= aika:
         if event.is_set():
@@ -99,7 +102,7 @@ def tulosta(kirjoitusjono, tiedosto, event):
 
 
 def aja():
-    global gpslukeminen, acceleroloop,elm327,kirjoittaminen,event
+    global connection, gpslukeminen, acceleroloop,elm327,kirjoittaminen,event
     obd.logger.setLevel(obd.logging.DEBUG)
     connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
@@ -129,19 +132,27 @@ def close_window():
 
 def aloita_lopeta():
     if button["text"] == "Aloita":
-        tosi = True
         aja()
         button.config(text="Lopeta", fg="red")
     else:
-        tosi = False
-        button.config(text="Aloita", command=close_window(), fg="green")
+        button.config(text="Aloita", command=close_window, fg="green")
 
 
-button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
+
+if gpsyhteys is False:
+    button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey", state=DISABLED)
+elif gpsyhteys is True:
+    button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
 button.pack()
 button.place(relx=0.5, rely=0.5, anchor=CENTER)
+window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
 window.geometry("400x400")
 # window.attributes('-fullscreen', True)
 window.configure(bg="seashell")
 window.mainloop()
-
+laskuri = 0;
+while gpsyhteys is False:
+    laskuri = laskuri + 1;
+    button.config(text=str(laskuri))
+    time.sleep(1)
+button(state=NORMAL)
