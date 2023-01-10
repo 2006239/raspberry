@@ -150,13 +150,11 @@ window.geometry("400x400")
 # window.attributes('-fullscreen', True)
 window.configure(bg="seashell")
 window.mainloop()
-laskuri = 0;
-
+laskuri=0
 while gpsyhteys is False:
-    laskuri = laskuri + 1;
+    laskuri=laskuri+1
     button.pack(text=str(laskuri))
     time.sleep(1)
-
 button.pack(state="normal")
 
 
