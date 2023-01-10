@@ -22,7 +22,7 @@ def gps(elmjono, event):
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         if result.get("mode", "") == "3":
-            gpsyhteys = True
+            GPSstatus=Label(window, text = "GPS_status: online")
         if ekasuoritus is True and gpsyhteys is True:
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             ekasuoritus = False
@@ -101,8 +101,8 @@ def tulosta(kirjoitusjono, tiedosto, event):
         print('Tiedostoon tallentaminen loppui', msg)
 
 
-def aja():
-    global connection, gpslukeminen, acceleroloop,elm327,kirjoittaminen,event
+def aja(button):
+    global connection, gpslukeminen, acceleroloop,elm327,kirjoittaminen,event, GPSstatus
     obd.logger.setLevel(obd.logging.DEBUG)
     connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
@@ -133,12 +133,8 @@ def close_window():
 def aloita_lopeta():
     laskuri = 0
     if button["text"] == "Aloita":
-        aja()
+        aja(button)
         button.congig(text="Odoto: 0", state="disabled")
-        while gpsyhteys is False:
-            laskuri = laskuri + 1
-            time.sleep(1)
-            button.config(text=("Odota: "+laskuri))
         button.config(text="Lopeta", fg="red", state="normal")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
@@ -149,6 +145,8 @@ button.pack()
 button.place(relx=0.5, rely=0.5, anchor=CENTER)
 window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
 window.geometry("400x400")
+GPSstatus=Label(window, text = "GPS_status: offline")
+GPSstatus.place(x = 40,y = 60)
 # window.attributes('-fullscreen', True)
 window.configure(bg="seashell")
 window.mainloop()
