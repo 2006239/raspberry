@@ -135,7 +135,7 @@ def close_window():
     exit()
 
 
-def aloita_lopeta(button):
+def aloita_lopeta():
     if button['text'] == "Aloita":
         button.config(text="Lopeta", command=close_window, fg="red")
         threading.Thread(target=aja(), daemon=True).start()
