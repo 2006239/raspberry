@@ -141,12 +141,14 @@ def paivita():
         GPSstatus_string.set(temp)
         window.update_idletasks()
     else:
-        window.after(200, paivita)
+        window.after(100, paivita)
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
+        button.config(text="Yhdistetään...", fg="green", state="disabled")
         threading.Thread(target=aja).start()
-        button.config(text="Lopeta", command=close_window, fg="green")
+        threading.Thread(target=paivita).start()
+        button.config(text="Lopeta", command=close_window, fg="green", state="normal")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
@@ -165,7 +167,7 @@ if __name__ == '__main__':
     GPSstatus.place(x = 40,y = 60)
     # window.attributes('-fullscreen', True)
     window.configure(bg="seashell")
-    # threading.Thread(target=paivita).start()
+
     window.mainloop()
 
 
