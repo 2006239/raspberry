@@ -16,13 +16,10 @@ import threading
 tiedosto = "testi01.txt"
 ekasuoritus = False
 gpsyhteys = False
-window=tk.Tk()
-GPSstatus_string = tk.StringVar(window)
-GPSstatus_string.set("GPS_status: offline")
-GPSstatus = tk.Label(window, textvariable=GPSstatus_string)
+
 
 def gps(elmjono, event):
-    global gpsyhteys, window
+    global gpsyhteys, window, GPSstatus
     ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
@@ -146,16 +143,21 @@ def aloita_lopeta():
         button.config(text="Aloita", command=close_window, fg="green")
 
 
-button = tk.Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
-button.pack()
-button.place(relx=0.5, rely=0.5, anchor="center")
-window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
-window.geometry("400x400")
-# GPSstatus=Label(window, text = "GPS_status: offline")
-GPSstatus.place(x = 40,y = 60)
-# window.attributes('-fullscreen', True)
-window.configure(bg="seashell")
-window.mainloop()
+if __name__ == '__main__':
+    window = tk.Tk()
+    GPSstatus_string = tk.StringVar(window)
+    GPSstatus_string.set("GPS_status: offline")
+    GPSstatus = tk.Label(window, textvariable=GPSstatus_string)
+    button = tk.Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
+    button.pack()
+    button.place(relx=0.5, rely=0.5, anchor="center")
+    window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
+    window.geometry("400x400")
+    # GPSstatus=Label(window, text = "GPS_status: offline")
+    GPSstatus.place(x = 40,y = 60)
+    # window.attributes('-fullscreen', True)
+    window.configure(bg="seashell")
+    window.mainloop()
 
 
 
