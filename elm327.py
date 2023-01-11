@@ -16,7 +16,7 @@ import threading
 tiedosto = "testi01.txt"
 ekasuoritus = False
 gpsyhteys = False
-
+yhteysjono = Queue()
 
 def gps(elmjono, event):
     global gpsyhteys, window, GPSstatus
@@ -25,7 +25,7 @@ def gps(elmjono, event):
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         if result.get("mode", "") == 3 and gpsyhteys is False:
             print("gpsyhteys")
-            GPSstatus_string.set("GPS_status: online")
+            yhteysjono.put("GOS_status: online")
             gpsyhteys = True
             # window.update()
         if ekasuoritus is True and gpsyhteys is True:
@@ -112,7 +112,7 @@ def aja():
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
     event = Event()
-    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, event,))
+    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, yhteysjono, event,))
     acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, event,))
     # elm327 = multiprocessing.Process(target=yhteys, args=(jono, event,))
     kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, tiedosto, event,))
@@ -160,6 +160,10 @@ if __name__ == '__main__':
     window.mainloop()
     while True:
         window.update_idletasks()
+        if yhteysjono is not None:
+            temp = yhteysjono.get()
+            if temp == "GOS_status: online":
+                GPSstatus_string.set(yhteysjono.get())
         time.sleep(0.2)
 
 
