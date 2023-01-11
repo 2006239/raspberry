@@ -27,7 +27,7 @@ def gps(elmjono, event):
             print("gpsyhteys")
             GPSstatus_string.set("GPS_status: online")
             gpsyhteys = True
-            window.update()
+            # window.update()
         if ekasuoritus is True and gpsyhteys is True:
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             ekasuoritus = False
