@@ -148,7 +148,7 @@ if __name__ == '__main__':
     GPSstatus_string = tk.StringVar(window)
     GPSstatus_string.set("GPS_status: offline")
     GPSstatus = tk.Label(window, textvariable=GPSstatus_string)
-    button = tk.Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
+    button = tk.Button(window, text="Aloita", command=threading.Thread(target=aloita_lopeta).start(), font=("Roboto", 50), bg="lightgrey")
     button.pack()
     button.place(relx=0.5, rely=0.5, anchor="center")
     window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     window.configure(bg="seashell")
     window.mainloop()
     while True:
-        window.update()
+        window.update_idletasks()
         time.sleep(0.2)
 
 
