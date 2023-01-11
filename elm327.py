@@ -159,12 +159,13 @@ if __name__ == '__main__':
     window.configure(bg="seashell")
     window.mainloop()
     while True:
-        window.update_idletasks()
         if yhteysjono is not None:
             temp = yhteysjono.get()
+            print(temp)
             if temp == "GOS_status: online":
                 GPSstatus_string.set(yhteysjono.get())
         time.sleep(0.2)
+        window.update_idletasks()
 
 
 
