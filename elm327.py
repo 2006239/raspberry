@@ -139,16 +139,16 @@ def paivita():
         temp = yhteysjono.get()
         print(temp)
         GPSstatus_string.set(temp)
+        button.config(text="Lopeta", command=close_window, fg="red", state="normal")
         window.update_idletasks()
     else:
         window.after(100, paivita)
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
-        button.config(text="Yhdistetään...", fg="green", state="disabled")
         aja()
         threading.Thread(target=paivita).start()
-        button.config(text="Lopeta", command=close_window, fg="green", state="normal")
+        button.config(text="Yhdistetään...", fg="green", state="disabled")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
