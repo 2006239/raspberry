@@ -158,6 +158,9 @@ if __name__ == '__main__':
     # window.attributes('-fullscreen', True)
     window.configure(bg="seashell")
     window.mainloop()
+    while True:
+        window.update()
+        time.sleep(0.2)
 
 
 
