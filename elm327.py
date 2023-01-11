@@ -136,10 +136,9 @@ def close_window():
 
 def paivita():
     if yhteysjono is not None:
-       temp = yhteysjono.get()
-       print(temp)
-       if temp == "GOS_status: online":
-           GPSstatus_string.set(temp)
+        temp = yhteysjono.get()
+        print(temp)
+        GPSstatus_string.set(temp)
     window.update_idletasks()
     window.after(200, paivita)
 
