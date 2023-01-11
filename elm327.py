@@ -146,7 +146,7 @@ def paivita():
 def aloita_lopeta():
     if button['text'] == "Aloita":
         button.config(text="Yhdistetään...", fg="green", state="disabled")
-        threading.Thread(target=aja).start()
+        aja()
         threading.Thread(target=paivita).start()
         button.config(text="Lopeta", command=close_window, fg="green", state="normal")
     else:
