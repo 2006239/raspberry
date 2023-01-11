@@ -135,11 +135,10 @@ def close_window():
     exit()
 
 
-def aloita_lopeta():
-    global button
-    if button['text'] == "Aloita": 
-        aja()
-        button.config(text="Lopeta",command=close_window, fg="red")
+def aloita_lopeta(button):
+    if button['text'] == "Aloita":
+        button.config(text="Lopeta", command=close_window, fg="red")
+        threading.Thread(target=aja(), daemon=True).start()
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
@@ -149,7 +148,7 @@ if __name__ == '__main__':
     GPSstatus_string = tk.StringVar(window)
     GPSstatus_string.set("GPS_status: offline")
     GPSstatus = tk.Label(window, textvariable=GPSstatus_string)
-    button = tk.Button(window, text="Aloita", command=threading.Thread(target=aloita_lopeta).start(), font=("Roboto", 50), bg="lightgrey")
+    button = tk.Button(window, text="Aloita", command=aloita_lopeta(), font=("Roboto", 50), bg="lightgrey")
     button.pack()
     button.place(relx=0.5, rely=0.5, anchor="center")
     window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
