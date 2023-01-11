@@ -135,8 +135,8 @@ def close_window():
     exit()
 
 def paivita():
-    if yhteysjono is not None:
-        temp = yhteysjono.get()
+    if yhteysjono.empty() is False:
+        temp = yhteysjono.get(False)
         print(temp)
         GPSstatus_string.set(temp)
         button.config(text="Lopeta", command=close_window, fg="red", state="normal")
