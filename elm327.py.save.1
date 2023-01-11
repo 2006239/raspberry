@@ -1,4 +1,4 @@
-import tkinter as tk
+from tkinter import *
 import obd
 import time
 import sys
@@ -12,25 +12,21 @@ import adafruit_lis3dh
 import multiprocessing
 from multiprocessing import Queue
 from multiprocessing import Event
-import threading
 tiedosto = "testi01.txt"
 ekasuoritus = False
-gpsyhteys = False
-window=tk.Tk()
-GPSstatus_string = tk.StringVar(window)
-GPSstatus_string.set("GPS_status: offline")
-GPSstatus = tk.Label(window, textvariable=GPSstatus_string)
+window = Tk()
 
 def gps(elmjono, event):
-    global gpsyhteys, window
+    globa
+    gpsyhteys=False
     ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
-        if result.get("mode", "") == 3 and gpsyhteys is False:
+        # print(result)
+        if result.get("mode", "") == 3 and gpsyhteys==False:
             print("gpsyhteys")
-            GPSstatus_string.set("GPS_status: online")
-            gpsyhteys = True
-            window.update()
+            GPSstatus = Label(window, text="GPS_status: online")
+            gpsyhteys=True
         if ekasuoritus is True and gpsyhteys is True:
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             ekasuoritus = False
@@ -110,7 +106,7 @@ def tulosta(kirjoitusjono, tiedosto, event):
 
 
 def aja():
-    global window, connection, gpslukeminen, acceleroloop, elm327, kirjoittaminen, event
+    global window, connection, gpslukeminen, acceleroloop, elm327, kirjoittaminen, event, GPSstatus
     # obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
@@ -139,19 +135,19 @@ def close_window():
 
 
 def aloita_lopeta():
-    if button['text'] == "Aloita": 
+    if button["text"] == "Aloita":
         aja()
         button.config(text="Lopeta",command=close_window, fg="red")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
 
-button = tk.Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
+button = Button(window, text="Aloita", command=aloita_lopeta, font=("Roboto", 50), bg="lightgrey")
 button.pack()
-button.place(relx=0.5, rely=0.5, anchor="center")
+button.place(relx=0.5, rely=0.5, anchor=CENTER)
 window.title("OBD2, GPS ja kiihtyvyysanturin lukeminen ")
 window.geometry("400x400")
-# GPSstatus=Label(window, text = "GPS_status: offline")
+GPSstatus=Label(window, text = "GPS_status: offline")
 GPSstatus.place(x = 40,y = 60)
 # window.attributes('-fullscreen', True)
 window.configure(bg="seashell")
