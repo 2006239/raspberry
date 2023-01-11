@@ -144,10 +144,8 @@ def paivita():
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
-        aja()
-        update = multiprocessing.Process(target=paivita, daemon=True)
-        update.start()
-        button.config(text="Lopeta", command=close_window, fg="red")
+        threading.Thread(target=aja).start()
+        button.config(text="Lopeta", command=close_window, fg="green")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
@@ -166,6 +164,7 @@ if __name__ == '__main__':
     GPSstatus.place(x = 40,y = 60)
     # window.attributes('-fullscreen', True)
     window.configure(bg="seashell")
+    window.after(200, paivita)
     window.mainloop()
 
 
