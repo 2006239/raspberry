@@ -18,8 +18,8 @@ ekasuoritus = False
 gpsyhteys = False
 yhteysjono = Queue()
 
-def gps(elmjono, event):
-    global gpsyhteys, window, GPSstatus
+def gps(elmjono, window, event):
+    global gpsyhteys, GPSstatus
     ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
@@ -27,7 +27,7 @@ def gps(elmjono, event):
             print("gpsyhteys")
             yhteysjono.put("GPS_status: online")
             gpsyhteys = True
-            # window.update()
+            window.update()
         if ekasuoritus is True and gpsyhteys is True:
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             ekasuoritus = False
@@ -112,7 +112,7 @@ def aja():
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
     event = Event()
-    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, event,))
+    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, window, event,))
     acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, event,))
     # elm327 = multiprocessing.Process(target=yhteys, args=(jono, event,))
     kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, tiedosto, event,))
@@ -165,7 +165,7 @@ if __name__ == '__main__':
     GPSstatus.place(x = 40,y = 60)
     # window.attributes('-fullscreen', True)
     window.configure(bg="seashell")
-    window.after(200, paivita)
+    # threading.Thread(target=paivita).start()
     window.mainloop()
 
 
