@@ -144,9 +144,9 @@ def paivita():
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
+        thread1 = threading.Thread(target=aja(), daemon=True).start()
+        thread2 = threading.Thread(target=paivita(), daemon=True).start()
         button.config(text="Lopeta", command=close_window, fg="red")
-        threading.Thread(target=aja(), daemon=True).start()
-        threading.Thread(target=paivita(), daemon=True).start()
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
