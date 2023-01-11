@@ -25,7 +25,7 @@ def gps(elmjono, event):
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         if result.get("mode", "") == 3 and gpsyhteys is False:
             print("gpsyhteys")
-            yhteysjono.put("GOS_status: online")
+            yhteysjono.put("GPS_status: online")
             gpsyhteys = True
             # window.update()
         if ekasuoritus is True and gpsyhteys is True:
@@ -139,7 +139,7 @@ def paivita():
        temp = yhteysjono.get()
        print(temp)
        if temp == "GOS_status: online":
-           GPSstatus_string.set(yhteysjono.get())
+           GPSstatus_string.set(temp)
     window.update_idletasks()
     window.after(200, paivita)
 
