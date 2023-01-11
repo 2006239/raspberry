@@ -134,11 +134,20 @@ def close_window():
     kirjoittaminen.join()
     exit()
 
+def paivita():
+    if yhteysjono is not None:
+       temp = yhteysjono.get()
+       print(temp)
+       if temp == "GOS_status: online":
+           GPSstatus_string.set(yhteysjono.get())
+    window.update_idletasks()
+    window.after(200, paivita)
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
         button.config(text="Lopeta", command=close_window, fg="red")
         threading.Thread(target=aja(), daemon=True).start()
+        threading.Thread(target=paivita(), daemon=True).Start()
     else:
         button.config(text="Aloita", command=close_window, fg="green")
 
@@ -158,14 +167,7 @@ if __name__ == '__main__':
     # window.attributes('-fullscreen', True)
     window.configure(bg="seashell")
     window.mainloop()
-    while True:
-        if yhteysjono is not None:
-            temp = yhteysjono.get()
-            print(temp)
-            if temp == "GOS_status: online":
-                GPSstatus_string.set(yhteysjono.get())
-        time.sleep(0.2)
-        window.update_idletasks()
+
 
 
 
