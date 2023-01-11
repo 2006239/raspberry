@@ -139,8 +139,9 @@ def paivita():
         temp = yhteysjono.get()
         print(temp)
         GPSstatus_string.set(temp)
-    window.update_idletasks()
-    window.after(200, paivita)
+        window.update_idletasks()
+    else:
+        window.after(200, paivita)
 
 def aloita_lopeta():
     if button['text'] == "Aloita":
