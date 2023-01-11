@@ -136,6 +136,7 @@ def close_window():
 
 
 def aloita_lopeta():
+    global button
     if button['text'] == "Aloita": 
         aja()
         button.config(text="Lopeta",command=close_window, fg="red")
