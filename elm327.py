@@ -112,7 +112,7 @@ def aja():
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     jono = Queue()
     event = Event()
-    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, yhteysjono, event,))
+    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, event,))
     acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, event,))
     # elm327 = multiprocessing.Process(target=yhteys, args=(jono, event,))
     kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, tiedosto, event,))
