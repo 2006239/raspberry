@@ -133,7 +133,7 @@ def tulosta(elmjono, state, tiedosto, event):
             print(merkkijono)
             tiedostopolku.write(f"{merkkijono}\n")
 #    except Exception as msg:
-        print('Tiedostoon tallentaminen loppui:', msg)
+        print('Tiedostoon tallentaminen loppui.')  # , msg)
 
 
 def aja():
