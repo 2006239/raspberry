@@ -129,7 +129,7 @@ def tulosta(elmjono, state, tiedosto, event):
                 laskuri = laskuri + 1
                 print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
             print(elmjono.qsize())
-            merkkkijono = elmjono.get(block=False)
+            merkkijono = elmjono.get(block=False)
             print(merkkijono)
             tiedostopolku.write(f"{merkkijono}\n")
 #    except Exception as msg:
