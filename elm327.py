@@ -13,7 +13,7 @@ import multiprocessing
 from multiprocessing import Queue
 from multiprocessing import Event
 import threading
-tiedosto = "testi03.txt"
+tiedosto = "testi33.txt"
 ekasuoritus = True
 gpsyhteys = False
 gps = False
@@ -29,13 +29,13 @@ def gps(elmjono,state, event):
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         yhteysjono.put(status)
         if result.get("mode", "") == 2:
-                status = "GPS_status: 2D scan"
+            status = "GPS_status: 2D scan"
         if result.get("mode", "") == 1:
-                status = "GPS_status: no connection"
-                gpsyhteys = False
+            status = "GPS_status: no connection"
+            gpsyhteys = False
         if result.get("mode", "") == 3: # and gpsyhteys is False:
             print("gpsyhteys")
-           status = "GPS_status: 3D scan"
+            status = "GPS_status: 3D scan"
             gpsyhteys = True
             # window.update()
         if ekasuoritus is True and state.empty() is True:
@@ -71,6 +71,7 @@ def accelerometer(elmjono,state, event):
         ]
         # print("x = %0.3f G, y = %0.3f G, z = %0.3f G" % (x, y, z))
         elmjono.put("<accelerometer>\n<x> %0.3f </x>\n<y> %0.3f </y>\n<z> %0.3f </z>\n" % (x, y, z) + "</accelerometer>")
+        # print(elmjono)
         # Small delay to keep things responsive but give time for interrupt processing.
         time.sleep(0.27)
 
@@ -112,25 +113,26 @@ def yhteys(elmjono, state, event):
             # print('yhteys on suljettu ' + str(msg))
     elm327jono.put("ELM327_status: "+connection.status())
 
-def tulosta(kirjoitusjono, tiedosto, event):
+def tulosta(elmjono, state, tiedosto, event):
     laskuri = 0
     merkkijono = ""
-    try:
-        with open(tiedosto, 'w') as tiedostopolku:
-            while True:
-                if event.is_set():
-                    tiedostopolku.write("</cycle>")
-                    tiedostopolku.write("</data>")
-                    tiedostopolku.close()
-                    break
-                while kirjoitusjono.empty() is True:
-                    time.sleep(1)
-                    laskuri = laskuri + 1
-                    print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
-                print(merkkijono)
-                merkkkijono = kirjoitusjono.get(False)
-                tiedostopolku.write(f"{merkkijono}\n")
-    except Exception as msg:
+    # try:
+    with open(tiedosto, 'w') as tiedostopolku:
+        while True:
+            if event.is_set():
+                tiedostopolku.write("</cycle>")
+                tiedostopolku.write("</data>")
+                tiedostopolku.close()
+                break
+            while elmjono.qsize() < 1:
+                time.sleep(1)
+                laskuri = laskuri + 1
+                print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
+            print(elmjono.qsize())
+            merkkkijono = elmjono.get(block=False)
+            print(merkkijono)
+            tiedostopolku.write(f"{merkkijono}\n")
+#    except Exception as msg:
         print('Tiedostoon tallentaminen loppui:', msg)
 
 
@@ -139,13 +141,13 @@ def aja():
     # obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     # elm327jono.put("ELM327_status: "+connection.status())
-    state = Queue()
-    jono = Queue()
+    state = multiprocessing.Queue()
+    jono = multiprocessing.Queue()
     event = Event()
     gpslukeminen = multiprocessing.Process(target=gps, args=(jono, state, event,))
     acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, state, event,))
     # elm327 = multiprocessing.Process(target=yhteys, args=(jono, state, event,))
-    kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, tiedosto, event,))
+    kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, state, tiedosto, event,))
     kirjoittaminen.daemon = True
     gpslukeminen.daemon = True
     # elm327.daemon = True
