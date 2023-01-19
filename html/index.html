@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+  <head>
+
+<link rel="stylesheet" href="./leaflet/leaflet.css"/>
+ <script src="./leaflet/leaflet.js"></script>
+ <script src="./script/aloitus.js"></script>
+ <script src="./script/ajoreitti.js"></script>
+
+
+    <title>Title of the Document</title>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 400px;
+			width: 600px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>  
+</head>
+<body>
+    <h1>
+      Read Local text file using JavaScript
+    </h1>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+<script>
+
+	const map = L.map('map').setView(aloituspiste, 12);
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+        L.geoJSON(ajoreitti).addTo(map);
+	const marker = L.marker([51.5, -0.09]).addTo(map);
+
+	const circle = L.circle([51.508, -0.11], {
+		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5,
+		radius: 500
+	}).addTo(map);
+
+	const polygon = L.polygon([
+		[51.509, -0.08],
+		[51.503, -0.06],
+		[51.51, -0.047]
+	]).addTo(map);
+</script>
+ </body>
+</html>
+
