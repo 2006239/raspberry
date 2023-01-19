@@ -21,33 +21,35 @@ elm327b = False
 yhteysjono = Queue()
 elm327jono = Queue()
 
-def gps(elmjono, event):
+def gps(elmjono,state, event):
     global gpsyhteys, GPSstatus
+    status = "yhdistetaan"
     ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
-        # while result.get("mode", "") != 3:
+        yhteysjono.put(status)
         if result.get("mode", "") == 2:
-                yhteysjono.put("GPS_status: 2D scan")
+                status = "GPS_status: 2D scan"
         if result.get("mode", "") == 1:
-                yhteysjono.put("GPS_status: no connection")
+                status = "GPS_status: no connection"
                 gpsyhteys = False
         if result.get("mode", "") == 3: # and gpsyhteys is False:
             print("gpsyhteys")
-            yhteysjono.put("GPS_status: 3D scan")
+           status = "GPS_status: 3D scan"
             gpsyhteys = True
             # window.update()
-        if ekasuoritus is True and gpsyhteys is True:
+        if ekasuoritus is True and state.empty() is True:
             elmjono.put("<data>")
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
-            ekasuoritus = False
-            # yhteysjono.put("GPS_status: luetaan")
+            state.put("jonossa")
         elif gpsyhteys is True:
             elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
+            status =  "GPS_status: luetaan"
         if event.is_set():
+            status = "GPS_status: lopetetaan"
             break
 
-def accelerometer(elmjono, event):
+def accelerometer(elmjono,state, event):
     if hasattr(board, "ACCELEROMETER_SCL"):
         i2c = busio.I2C(board.ACCELEROMETER_SCL, board.ACCELEROMETER_SDA)
         lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c, address=0x19)
@@ -57,7 +59,7 @@ def accelerometer(elmjono, event):
          lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
     lis3dh.range = adafruit_lis3dh.RANGE_2_G
     # Loop forever printing accelerometer values
-    while ekasuoritus is True:
+    while state.empty() is True:
         time.sleep(0.2)
     while True:
         if event.is_set():
@@ -72,14 +74,14 @@ def accelerometer(elmjono, event):
         # Small delay to keep things responsive but give time for interrupt processing.
         time.sleep(0.27)
 
-def yhteys(elmjono, event):
+def yhteys(elmjono, state, event):
     global connection
     # try:
-    connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
-    while connection.is_connected() is False and ekasuoritus is True:
+    connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
+    while connection.is_connected() is False and state.empty() is True:
          elm327jono.put("ELM327_status: " +connection.status())
          time.sleep(3)
-         connection = obd.OBD("/tmp/ttyBLE")
+         connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
     elm327jono.put("ELM327_status: " +connection.status())
     while connection.is_connected():  # and (kesto - aloitus) <= aika:
         # elm327.jono.put(obd.status())
@@ -125,37 +127,37 @@ def tulosta(kirjoitusjono, tiedosto, event):
                     time.sleep(1)
                     laskuri = laskuri + 1
                     print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
-                else:
-                    print(merkkijono)
-                    merkkkijono = kirjoitusjono.get(False)
-                    tiedostopolku.write(f"{merkkijono}\n")
+                print(merkkijono)
+                merkkkijono = kirjoitusjono.get(False)
+                tiedostopolku.write(f"{merkkijono}\n")
     except Exception as msg:
         print('Tiedostoon tallentaminen loppui:', msg)
 
 
 def aja():
     global window, gpslukeminen, acceleroloop, elm327, kirjoittaminen, event
-    obd.logger.setLevel(obd.logging.DEBUG)
+    # obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     # elm327jono.put("ELM327_status: "+connection.status())
+    state = Queue()
     jono = Queue()
     event = Event()
-    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, event,))
-    acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, event,))
-    elm327 = multiprocessing.Process(target=yhteys, args=(jono, event,))
+    gpslukeminen = multiprocessing.Process(target=gps, args=(jono, state, event,))
+    acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, state, event,))
+    # elm327 = multiprocessing.Process(target=yhteys, args=(jono, state, event,))
     kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, tiedosto, event,))
     kirjoittaminen.daemon = True
     gpslukeminen.daemon = True
-    elm327.daemon = True
+    # elm327.daemon = True
     acceleroloop.daemon = True
     gpslukeminen.start()
-    elm327.start()
+    # elm327.start()
     acceleroloop.start()
     kirjoittaminen.start()
 
 def close_window():
     event.set()
-    elm327.join()
+    # elm327.join()
     acceleroloop.join()
     gpslukeminen.join()
     kirjoittaminen.join()
@@ -176,7 +178,7 @@ def paivita():
         elm327b = True
         ELM327status_string.set(temp2)
         window.update_idletasks()
-    if gps and elm327b and ekasuoritus is False:
+    if gps: # and elm327b: # and ekasuoritus is False:
         button.config(text="Lopeta", command=close_window, fg="red", state="normal")
         window.update_idletasks()
         window.after(1000, paivita)
@@ -186,7 +188,7 @@ def paivita():
 def aloita_lopeta():
     if button['text'] == "Aloita":
         aja()
-        threading.Thread(target=paivita).start()
+        threading.Thread(target=paivita, args=()).start()
         button.config(text="Yhdistetään...", fg="green", state="disabled")
     else:
         button.config(text="Aloita", command=close_window, fg="green")
