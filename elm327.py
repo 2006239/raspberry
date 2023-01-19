@@ -16,7 +16,7 @@ import threading
 tiedosto = "testi33.txt"
 ekasuoritus = True
 gpsyhteys = False
-gps = False
+gpss = False
 elm327b = False
 yhteysjono = Queue()
 elm327jono = Queue()
@@ -24,7 +24,7 @@ elm327jono = Queue()
 def gps(elmjono,state, event):
     global gpsyhteys, GPSstatus
     status = "yhdistetaan"
-    ekasuoritus = True
+    # ekasuoritus = True
     client = GPSDClient(host="127.0.0.1")
     for result in client.dict_stream(convert_datetime=True,  filter=["TPV"]):
         yhteysjono.put(status)
@@ -38,7 +38,7 @@ def gps(elmjono,state, event):
             status = "GPS_status: 3D scan"
             gpsyhteys = True
             # window.update()
-        if ekasuoritus is True and state.empty() is True:
+        if gpsyhteys is True and state.empty() is True:
             elmjono.put("<data>")
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             state.put("jonossa")
@@ -138,7 +138,7 @@ def tulosta(elmjono, state, tiedosto, event):
 
 def aja():
     global window, gpslukeminen, acceleroloop, elm327, kirjoittaminen, event
-    # obd.logger.setLevel(obd.logging.DEBUG)
+    obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     # elm327jono.put("ELM327_status: "+connection.status())
     state = multiprocessing.Queue()
@@ -146,31 +146,31 @@ def aja():
     event = Event()
     gpslukeminen = multiprocessing.Process(target=gps, args=(jono, state, event,))
     acceleroloop = multiprocessing.Process(target=accelerometer, args=(jono, state, event,))
-    # elm327 = multiprocessing.Process(target=yhteys, args=(jono, state, event,))
+    elm327 = multiprocessing.Process(target=yhteys, args=(jono, state, event,))
     kirjoittaminen = multiprocessing.Process(target=tulosta, args=(jono, state, tiedosto, event,))
     kirjoittaminen.daemon = True
     gpslukeminen.daemon = True
-    # elm327.daemon = True
+    elm327.daemon = True
     acceleroloop.daemon = True
     gpslukeminen.start()
-    # elm327.start()
+    elm327.start()
     acceleroloop.start()
     kirjoittaminen.start()
 
 def close_window():
     event.set()
-    # elm327.join()
+    elm327.join()
     acceleroloop.join()
     gpslukeminen.join()
     kirjoittaminen.join()
     exit()
 
 def paivita():
-    global gps, elm327b
+    global gpss, elm327b
     if yhteysjono.empty() is False: #  and ekasuoritus is False:
         temp = yhteysjono.get(False)
         # print(temp)
-        gps=True
+        gpss = True
         GPSstatus_string.set(temp)
         # button.config(text="Lopeta", command=close_window, fg="red", state="normal")
         window.update_idletasks()
@@ -180,7 +180,7 @@ def paivita():
         elm327b = True
         ELM327status_string.set(temp2)
         window.update_idletasks()
-    if gps: # and elm327b: # and ekasuoritus is False:
+    if gpss and elm327b: # and ekasuoritus is False:
         button.config(text="Lopeta", command=close_window, fg="red", state="normal")
         window.update_idletasks()
         window.after(1000, paivita)
