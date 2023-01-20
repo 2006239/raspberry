@@ -34,7 +34,7 @@ def gps(elmjono,state, event):
             status = "GPS_status: no connection"
             gpsyhteys = False
         if result.get("mode", "") == 3: # and gpsyhteys is False:
-            print("gpsyhteys")
+            # print("gpsyhteys")
             status = "GPS_status: 3D scan"
             gpsyhteys = True
             # window.update()
@@ -43,7 +43,9 @@ def gps(elmjono,state, event):
             elmjono.put("<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
             state.put("jonossa")
         elif gpsyhteys is True:
-            elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n</gps>")
+            temp = result.get("speed", "")
+            nopeus = str("{:.2f}".format(float(temp)*3.6))
+            elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n<speed> " + nopeus + " </speed>\n</gps>")
             status =  "GPS_status: luetaan"
         if event.is_set():
             status = "GPS_status: lopetetaan"
@@ -61,6 +63,8 @@ def accelerometer(elmjono,state, event):
     # Loop forever printing accelerometer values
     while state.empty() is True:
         time.sleep(0.2)
+        if event.is_set():
+            break
     while True:
         if event.is_set():
             break
@@ -81,6 +85,8 @@ def yhteys(elmjono, state, event):
     connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
     while connection.is_connected() is False and state.empty() is True:
          elm327jono.put("ELM327_status: " +connection.status())
+         if event.is_set():
+             break
          time.sleep(3)
          connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
     elm327jono.put("ELM327_status: " +connection.status())
@@ -124,7 +130,7 @@ def tulosta(elmjono, state, tiedosto, event):
                 tiedostopolku.write("</data>")
                 tiedostopolku.close()
                 break
-            while elmjono.qsize() < 1:
+            while elmjono.empty():
                 time.sleep(1)
                 laskuri = laskuri + 1
                 print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
@@ -138,7 +144,7 @@ def tulosta(elmjono, state, tiedosto, event):
 
 def aja():
     global window, gpslukeminen, acceleroloop, elm327, kirjoittaminen, event
-    obd.logger.setLevel(obd.logging.DEBUG)
+    # obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     # elm327jono.put("ELM327_status: "+connection.status())
     state = multiprocessing.Queue()

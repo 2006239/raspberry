@@ -1,122 +1,1223 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<data>
+<cycle>
+<time> 20.01.2023 22:27:42 </time>
+<gps>
+<lat> 62.618527818 </lat>
+<lon> 29.786032426 </lon>
+</gps>
+<accelerometer>
+<x> 0.036 </x>
+<y> 0.308 </y>
+<z> 0.887 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.327 </y>
+<z> 0.921 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.331 </y>
+<z> 0.923 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.001 </x>
+<y> 0.344 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.012 </x>
+<y> 0.339 </y>
+<z> 0.911 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.007 </x>
+<y> 0.340 </y>
+<z> 0.907 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:43 </time>
+<gps>
+<lat> 62.61853869 </lat>
+<lon> 29.786025196 </lon>
+<speed> 0.87 </speed>
+</gps>
+<accelerometer>
+<x> -0.011 </x>
+<y> 0.342 </y>
+<z> 0.907 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.007 </x>
+<y> 0.338 </y>
+<z> 0.915 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:44 </time>
+<gps>
+<lat> 62.618534564 </lat>
+<lon> 29.786025196 </lon>
+<speed> 1.00 </speed>
+</gps>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.339 </y>
+<z> 0.919 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.006 </x>
+<y> 0.336 </y>
+<z> 0.894 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.013 </x>
+<y> 0.327 </y>
+<z> 0.910 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:45 </time>
+<gps>
+<lat> 62.61852765 </lat>
+<lon> 29.786015519 </lon>
+<speed> 1.33 </speed>
+</gps>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.314 </y>
+<z> 0.914 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.323 </y>
+<z> 0.884 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.320 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.033 </x>
+<y> 0.315 </y>
+<z> 0.902 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.317 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.319 </y>
+<z> 0.903 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:46 </time>
+<gps>
+<lat> 62.61852765 </lat>
+<lon> 29.786015519 </lon>
+<speed> 1.26 </speed>
+</gps>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.316 </y>
+<z> 0.929 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.329 </y>
+<z> 0.907 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:47 </time>
+<gps>
+<lat> 62.618531607 </lat>
+<lon> 29.785998612 </lon>
+<speed> 0.87 </speed>
+</gps>
+<accelerometer>
+<x> 0.023 </x>
+<y> 0.339 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.013 </x>
+<y> 0.335 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.015 </x>
+<y> 0.337 </y>
+<z> 0.906 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:48 </time>
+<gps>
+<lat> 62.618531607 </lat>
+<lon> 29.785998612 </lon>
+<speed> 1.62 </speed>
+</gps>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.319 </y>
+<z> 0.892 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.345 </y>
+<z> 0.913 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.346 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.015 </x>
+<y> 0.335 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.015 </x>
+<y> 0.336 </y>
+<z> 0.926 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.337 </y>
+<z> 0.908 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:49 </time>
+<gps>
+<lat> 62.618531607 </lat>
+<lon> 29.785998612 </lon>
+<speed> 1.49 </speed>
+</gps>
+<accelerometer>
+<x> 0.019 </x>
+<y> 0.334 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.008 </x>
+<y> 0.345 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.010 </x>
+<y> 0.334 </y>
+<z> 0.911 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:50 </time>
+<gps>
+<lat> 62.618531607 </lat>
+<lon> 29.785998612 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.001 </x>
+<y> 0.338 </y>
+<z> 0.872 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.348 </y>
+<z> 0.924 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:51 </time>
+<gps>
+<lat> 62.618531607 </lat>
+<lon> 29.785998612 </lon>
+<speed> 0.87 </speed>
+</gps>
+<accelerometer>
+<x> 0.014 </x>
+<y> 0.350 </y>
+<z> 0.915 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.001 </x>
+<y> 0.349 </y>
+<z> 0.919 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.006 </x>
+<y> 0.351 </y>
+<z> 0.889 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.005 </x>
+<y> 0.318 </y>
+<z> 0.892 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.012 </x>
+<y> 0.359 </y>
+<z> 0.894 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.002 </x>
+<y> 0.332 </y>
+<z> 0.905 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:52 </time>
+<gps>
+<lat> 62.618535565 </lat>
+<lon> 29.785981706 </lon>
+<speed> 0.99 </speed>
+</gps>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.341 </y>
+<z> 0.917 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.338 </y>
+<z> 0.867 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:53 </time>
+<gps>
+<lat> 62.618535565 </lat>
+<lon> 29.785981706 </lon>
+<speed> 0.77 </speed>
+</gps>
+<accelerometer>
+<x> -0.004 </x>
+<y> 0.337 </y>
+<z> 0.916 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.340 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.335 </y>
+<z> 0.905 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:54 </time>
+<gps>
+<lat> 62.618542479 </lat>
+<lon> 29.785991383 </lon>
+<speed> 0.41 </speed>
+</gps>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.329 </y>
+<z> 0.914 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.001 </x>
+<y> 0.330 </y>
+<z> 0.923 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.339 </y>
+<z> 0.913 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.007 </x>
+<y> 0.347 </y>
+<z> 0.919 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.004 </x>
+<y> 0.332 </y>
+<z> 0.916 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.335 </y>
+<z> 0.947 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:55 </time>
+<gps>
+<lat> 62.618542479 </lat>
+<lon> 29.785991383 </lon>
+<speed> 1.10 </speed>
+</gps>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.337 </y>
+<z> 0.932 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.316 </y>
+<z> 0.911 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:56 </time>
+<gps>
+<lat> 62.618542479 </lat>
+<lon> 29.785991383 </lon>
+<speed> 1.34 </speed>
+</gps>
+<accelerometer>
+<x> 0.004 </x>
+<y> 0.321 </y>
+<z> 0.899 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.310 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.316 </y>
+<z> 0.916 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:57 </time>
+<gps>
+<lat> 62.618549394 </lat>
+<lon> 29.78600106 </lon>
+<speed> 2.11 </speed>
+</gps>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.306 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.022 </x>
+<y> 0.287 </y>
+<z> 0.874 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.335 </y>
+<z> 0.903 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.342 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.007 </x>
+<y> 0.346 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.005 </x>
+<y> 0.337 </y>
+<z> 0.927 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:58 </time>
+<gps>
+<lat> 62.618549394 </lat>
+<lon> 29.78600106 </lon>
+<speed> 1.85 </speed>
+</gps>
+<accelerometer>
+<x> 0.003 </x>
+<y> 0.335 </y>
+<z> 0.915 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.015 </x>
+<y> 0.348 </y>
+<z> 0.928 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:27:59 </time>
+<gps>
+<lat> 62.618556308 </lat>
+<lon> 29.786010737 </lon>
+<speed> 1.83 </speed>
+</gps>
+<accelerometer>
+<x> 0.008 </x>
+<y> 0.330 </y>
+<z> 0.907 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.006 </x>
+<y> 0.331 </y>
+<z> 0.933 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.301 </y>
+<z> 0.900 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:00 </time>
+<gps>
+<lat> 62.618556308 </lat>
+<lon> 29.786010737 </lon>
+<speed> 1.41 </speed>
+</gps>
+<accelerometer>
+<x> 0.001 </x>
+<y> 0.303 </y>
+<z> 0.902 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.308 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.295 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.017 </x>
+<y> 0.301 </y>
+<z> 0.910 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.014 </x>
+<y> 0.308 </y>
+<z> 0.943 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.009 </x>
+<y> 0.332 </y>
+<z> 0.927 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:01 </time>
+<gps>
+<lat> 62.618564392 </lat>
+<lon> 29.78599383 </lon>
+<speed> 1.85 </speed>
+</gps>
+<accelerometer>
+<x> -0.006 </x>
+<y> 0.339 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.005 </x>
+<y> 0.339 </y>
+<z> 0.915 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:02 </time>
+<gps>
+<lat> 62.618571306 </lat>
+<lon> 29.786003507 </lon>
+<speed> 1.10 </speed>
+</gps>
+<accelerometer>
+<x> 0.011 </x>
+<y> 0.345 </y>
+<z> 0.933 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.017 </x>
+<y> 0.345 </y>
+<z> 0.925 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.302 </y>
+<z> 0.914 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:03 </time>
+<gps>
+<lat> 62.618571306 </lat>
+<lon> 29.786003507 </lon>
+<speed> 1.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.019 </x>
+<y> 0.296 </y>
+<z> 0.904 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.306 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.009 </x>
+<y> 0.316 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.319 </y>
+<z> 0.904 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.004 </x>
+<y> 0.332 </y>
+<z> 0.926 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.001 </x>
+<y> 0.336 </y>
+<z> 0.905 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:04 </time>
+<gps>
+<lat> 62.618567349 </lat>
+<lon> 29.786020414 </lon>
+<speed> 1.42 </speed>
+</gps>
+<accelerometer>
+<x> -0.016 </x>
+<y> 0.333 </y>
+<z> 0.888 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.316 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.306 </y>
+<z> 0.905 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:05 </time>
+<gps>
+<lat> 62.618567349 </lat>
+<lon> 29.786020414 </lon>
+<speed> 1.42 </speed>
+</gps>
+<accelerometer>
+<x> 0.019 </x>
+<y> 0.296 </y>
+<z> 0.899 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.027 </x>
+<y> 0.296 </y>
+<z> 0.909 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:06 </time>
+<gps>
+<lat> 62.618559265 </lat>
+<lon> 29.786037321 </lon>
+<speed> 2.01 </speed>
+</gps>
+<accelerometer>
+<x> 0.033 </x>
+<y> 0.297 </y>
+<z> 0.898 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.300 </y>
+<z> 0.914 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.333 </y>
+<z> 0.902 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.026 </x>
+<y> 0.330 </y>
+<z> 0.924 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.002 </x>
+<y> 0.334 </y>
+<z> 0.926 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.343 </y>
+<z> 0.943 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:07 </time>
+<gps>
+<lat> 62.618559265 </lat>
+<lon> 29.786037321 </lon>
+<speed> 2.01 </speed>
+</gps>
+<accelerometer>
+<x> -0.009 </x>
+<y> 0.331 </y>
+<z> 0.956 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.004 </x>
+<y> 0.340 </y>
+<z> 0.928 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:08 </time>
+<gps>
+<lat> 62.618555307 </lat>
+<lon> 29.786054228 </lon>
+<speed> 2.77 </speed>
+</gps>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.331 </y>
+<z> 0.924 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.336 </y>
+<z> 0.913 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.339 </y>
+<z> 0.942 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:09 </time>
+<gps>
+<lat> 62.618551349 </lat>
+<lon> 29.786071135 </lon>
+<speed> 2.34 </speed>
+</gps>
+<accelerometer>
+<x> -0.009 </x>
+<y> 0.315 </y>
+<z> 0.913 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.022 </x>
+<y> 0.295 </y>
+<z> 0.910 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.012 </x>
+<y> 0.299 </y>
+<z> 0.907 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.023 </x>
+<y> 0.298 </y>
+<z> 0.910 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.305 </y>
+<z> 0.899 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.028 </x>
+<y> 0.299 </y>
+<z> 0.933 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:10 </time>
+<gps>
+<lat> 62.618551349 </lat>
+<lon> 29.786071135 </lon>
+<speed> 1.90 </speed>
+</gps>
+<accelerometer>
+<x> 0.007 </x>
+<y> 0.301 </y>
+<z> 0.863 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.029 </x>
+<y> 0.335 </y>
+<z> 0.916 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:11 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 1.42 </speed>
+</gps>
+<accelerometer>
+<x> 0.033 </x>
+<y> 0.291 </y>
+<z> 0.923 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.024 </x>
+<y> 0.332 </y>
+<z> 0.916 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.001 </x>
+<y> 0.342 </y>
+<z> 0.929 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:12 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 0.44 </speed>
+</gps>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.341 </y>
+<z> 0.915 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.335 </y>
+<z> 0.919 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.027 </x>
+<y> 0.324 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.317 </y>
+<z> 0.907 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.008 </x>
+<y> 0.308 </y>
+<z> 0.892 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.014 </x>
+<y> 0.309 </y>
+<z> 0.945 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:13 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 0.44 </speed>
+</gps>
+<accelerometer>
+<x> 0.048 </x>
+<y> 0.298 </y>
+<z> 0.931 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.024 </x>
+<y> 0.298 </y>
+<z> 0.855 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:14 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.021 </x>
+<y> 0.296 </y>
+<z> 0.902 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.296 </y>
+<z> 0.875 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.295 </y>
+<z> 0.887 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:15 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.023 </x>
+<y> 0.329 </y>
+<z> 0.921 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.324 </y>
+<z> 0.922 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.320 </y>
+<z> 0.913 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.319 </y>
+<z> 0.900 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.023 </x>
+<y> 0.320 </y>
+<z> 0.921 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.341 </y>
+<z> 0.902 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:16 </time>
+<gps>
+<lat> 62.618543265 </lat>
+<lon> 29.786088041 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.026 </x>
+<y> 0.343 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.008 </x>
+<y> 0.342 </y>
+<z> 0.903 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:17 </time>
+<gps>
+<lat> 62.618539308 </lat>
+<lon> 29.786104948 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> -0.020 </x>
+<y> 0.339 </y>
+<z> 0.901 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.025 </x>
+<y> 0.338 </y>
+<z> 0.898 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.017 </x>
+<y> 0.307 </y>
+<z> 0.907 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:18 </time>
+<gps>
+<lat> 62.618532393 </lat>
+<lon> 29.786095271 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> -0.002 </x>
+<y> 0.304 </y>
+<z> 0.897 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.294 </y>
+<z> 0.899 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.308 </y>
+<z> 0.898 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.020 </x>
+<y> 0.301 </y>
+<z> 0.898 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.321 </y>
+<z> 0.922 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.023 </x>
+<y> 0.320 </y>
+<z> 0.919 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:19 </time>
+<gps>
+<lat> 62.618528267 </lat>
+<lon> 29.786095271 </lon>
+<speed> 0.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.009 </x>
+<y> 0.332 </y>
+<z> 0.917 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.341 </y>
+<z> 0.925 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.002 </x>
+<y> 0.336 </y>
+<z> 0.930 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:20 </time>
+<gps>
+<lat> 62.618528267 </lat>
+<lon> 29.786095271 </lon>
+<speed> 1.00 </speed>
+</gps>
+<accelerometer>
+<x> 0.000 </x>
+<y> 0.319 </y>
+<z> 0.947 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.010 </x>
+<y> 0.335 </y>
+<z> 0.882 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:21 </time>
+<gps>
+<lat> 62.618528267 </lat>
+<lon> 29.786095271 </lon>
+<speed> 1.47 </speed>
+</gps>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.314 </y>
+<z> 0.903 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.002 </x>
+<y> 0.321 </y>
+<z> 0.909 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.007 </x>
+<y> 0.315 </y>
+<z> 0.910 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.307 </y>
+<z> 0.897 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.009 </x>
+<y> 0.309 </y>
+<z> 0.904 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.008 </x>
+<y> 0.307 </y>
+<z> 0.909 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:22 </time>
+<gps>
+<lat> 62.618521353 </lat>
+<lon> 29.786085594 </lon>
+<speed> 2.88 </speed>
+</gps>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.300 </y>
+<z> 0.895 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.296 </y>
+<z> 0.912 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:23 </time>
+<gps>
+<lat> 62.618510312 </lat>
+<lon> 29.786075917 </lon>
+<speed> 3.15 </speed>
+</gps>
+<accelerometer>
+<x> -0.008 </x>
+<y> 0.304 </y>
+<z> 0.905 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.001 </x>
+<y> 0.298 </y>
+<z> 0.906 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.018 </x>
+<y> 0.306 </y>
+<z> 0.908 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:24 </time>
+<gps>
+<lat> 62.618507355 </lat>
+<lon> 29.786049333 </lon>
+<speed> 3.62 </speed>
+</gps>
+<accelerometer>
+<x> 0.006 </x>
+<y> 0.293 </y>
+<z> 0.880 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.297 </y>
+<z> 0.868 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.009 </x>
+<y> 0.330 </y>
+<z> 0.869 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.016 </x>
+<y> 0.321 </y>
+<z> 0.915 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.015 </x>
+<y> 0.323 </y>
+<z> 0.914 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.005 </x>
+<y> 0.337 </y>
+<z> 1.021 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:25 </time>
+<gps>
+<lat> 62.618500441 </lat>
+<lon> 29.786039656 </lon>
+<speed> 3.15 </speed>
+</gps>
+<accelerometer>
+<x> 0.035 </x>
+<y> 0.323 </y>
+<z> 0.920 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.013 </x>
+<y> 0.326 </y>
+<z> 0.890 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:26 </time>
+<gps>
+<lat> 62.618504399 </lat>
+<lon> 29.786022749 </lon>
+<speed> 2.29 </speed>
+</gps>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.337 </y>
+<z> 0.918 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.017 </x>
+<y> 0.333 </y>
+<z> 0.925 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.004 </x>
+<y> 0.336 </y>
+<z> 0.919 </z>
+</accelerometer>
+</cycle>
+<cycle>
+<time> 20.01.2023 22:28:27 </time>
+<gps>
+<lat> 62.618501442 </lat>
+<lon> 29.785996165 </lon>
+<speed> 2.62 </speed>
+</gps>
+<accelerometer>
+<x> -0.012 </x>
+<y> 0.319 </y>
+<z> 0.904 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.339 </y>
+<z> 0.940 </z>
+</accelerometer>
+<accelerometer>
+<x> -0.003 </x>
+<y> 0.323 </y>
+<z> 0.908 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.002 </x>
+<y> 0.307 </y>
+<z> 0.874 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.004 </x>
+<y> 0.314 </y>
+<z> 0.907 </z>
+</accelerometer>
+<accelerometer>
+<x> 0.010 </x>
+<y> 0.316 </y>
+<z> 0.912 </z>
+</accelerometer>
 </cycle></data>

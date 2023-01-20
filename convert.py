@@ -3,7 +3,7 @@ import xml.etree.ElementTree as et
 jono = []
 # filename = sys.argv[1]
 # if filename is None:
-filename = "testi00.txt"
+filename = "testi33.txt"
 tree = et.parse(filename)
 root = tree.getroot()
 laskuri = 0
