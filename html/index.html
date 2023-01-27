@@ -3,8 +3,9 @@
 
 <link rel="stylesheet" href="./leaflet/leaflet.css"/>
  <script src="./leaflet/leaflet.js"></script>
- <script src="./script/aloitus.js"></script>
- <script src="./script/ajoreitti.js"></script>
+ <!-- <script src="./script/aloitus.js"></script> --!>
+ <!-- <script src="./script/ajoreitti.js"></script> --!>
+
 
 
     <title>Title of the Document</title>
@@ -19,36 +20,31 @@
 			max-width: 100%;
 			max-height: 100%;
 		}
+.rangeslider{width: 100%;}
+.slider {
+    -webkit-appearance: none;
+    background: #FCF3CF  ;
+    width: 80%;
+    height: 20px;
+    opacity: 2;
+   }
 	</style>  
 </head>
 <body>
     <h1>
       Read Local text file using JavaScript
+<input type="file" id="textfile" accept="text/plain">
+
     </h1>
+<input type="checkbox" id="seuraa" name="valintalaatikko" value="">
+<label for="valintalaatikko"> Seuraa </label><br>
+<div class="rangeslider">
+  <input type="range" min="5" max="100" value="50"
+                 class="slider" id="valitsin">
+</div>
     <div id="map" style="width: 600px; height: 400px;"></div>
-<script>
-
-	const map = L.map('map').setView(aloituspiste, 12);
-	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
-        L.geoJSON(ajoreitti).addTo(map);
-	const marker = L.marker([51.5, -0.09]).addTo(map);
-
-	const circle = L.circle([51.508, -0.11], {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5,
-		radius: 500
-	}).addTo(map);
-
-	const polygon = L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(map);
-</script>
+<script src="./script/test.js"></script>
+<!-- <script src="./script/read.js"></script> --!>
  </body>
 </html>
 
