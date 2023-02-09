@@ -1,3 +1,4 @@
+import subprocess	
 import tkinter as tk
 import obd
 import time
@@ -45,7 +46,7 @@ def gps(elmjono,state, event):
         elif gpsyhteys is True:
             temp = result.get("speed", "")
             nopeus = str("{:.2f}".format(float(temp)*3.6))
-            elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n<speed> " + nopeus + " </speed>\n</gps>")
+            elmjono.put("</cycle>\n<cycle>\n<time> %s" % result.get("time", "").strftime("%d.%m.%Y %H:%M:%S") + " </time>\n<gps>\n<lat> %s" % result.get("lat", "") + " </lat>\n<lon> %s" % result.get("lon", "") + " </lon>\n<gpsspeed> " + nopeus + " </gpsspeed>\n</gps>")
             status =  "GPS_status: luetaan"
         if event.is_set():
             status = "GPS_status: lopetetaan"
@@ -56,9 +57,9 @@ def accelerometer(elmjono,state, event):
         i2c = busio.I2C(board.ACCELEROMETER_SCL, board.ACCELEROMETER_SDA)
         lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c, address=0x19)
     else:
-         i2c = board.I2C()  # uses board.SCL and board.SDA
-         # i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
-         lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
+        i2c = board.I2C()  # uses board.SCL and board.SDA
+        # i2c = board.STEMMA_I2C()  # For using the built-in STEMMA QT connector on a microcontroller
+        lis3dh = adafruit_lis3dh.LIS3DH_I2C(i2c)
     lis3dh.range = adafruit_lis3dh.RANGE_2_G
     # Loop forever printing accelerometer values
     while state.empty() is True:
@@ -81,14 +82,16 @@ def accelerometer(elmjono,state, event):
 
 def yhteys(elmjono, state, event):
     global connection
+    templaskuri = 0
     # try:
-    connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
+    connection = obd.OBD("/tmp/ttyBLE", baudrate="19200") #, protocol="A") 9600, 38400, 19200, 57600, 115200, protocol=None, fast=True, timeout=10)
     while connection.is_connected() is False and state.empty() is True:
-         elm327jono.put("ELM327_status: " +connection.status())
-         if event.is_set():
-             break
-         time.sleep(3)
-         connection = obd.OBD("/tmp/ttyBLE", baudrate="38400") # , protocol=None, fast=True, timeout=10)
+        subprocess.call("./ble.sh", shell=True)
+        elm327jono.put("ELM327_status: " +connection.status())
+        if event.is_set():
+            break
+        time.sleep(3)
+        connection = obd.OBD("/tmp/ttyBLE", baudrate="19200") # , protocol="A") , protocol=None, fast=True, timeout=10)
     elm327jono.put("ELM327_status: " +connection.status())
     while connection.is_connected():  # and (kesto - aloitus) <= aika:
         # elm327.jono.put(obd.status())
@@ -96,20 +99,35 @@ def yhteys(elmjono, state, event):
             connection.close()
             elm327jono.put("ELM327_status: "+connection.status())
             break
+        #  if templaskuri = 0:
+        #    templaskuri = 0
+        #    connection.close()
+        #    while connection.is_connected() is False:
+        #        elmjono.put("ELM327_status: "+ connection.status())
+        #        connection = obd.OBD("tmp/ttyBLE", baudrate="19200") #, protocol="A")
+        #    if event.is_set():
+        #        break
+        #    subprocess.call("./ble.sh", shell=True)
         # elm327jono.put("ELM327_status: kirjoitetaan")
         cmd = obd.commands.SPEED  # select an OBD command (sensor)
         response = connection.query(cmd)  # send the command, and parse the response
         if not response.is_null():
+            # templaskuri=templaskuri+1 
+        # else:
             temp = "<speed> " +  str(response.value) + " </speed>"
             elmjono.put(temp)  # returns unit-bearing values thanks to Pint
         cmd = obd.commands.THROTTLE_POS
         response = connection.query(cmd)
         if not response.is_null():
+            # templaskuri = templaskuri+1
+        # else:
             temp = "<throttle_pos> " + str(response.value) + " </throttle_pos>"
             elmjono.put(temp)
         cmd = obd.commands.FUEL_RATE
         response = connection.query(cmd)
         if not response.is_null():
+            # templaskuri = templaskuri+1
+        # else:
             temp = "<fuel_rate> " + str(response.value) + " </fuel_rate>"
             elmjono.put(temp)
             # cmd = ODO
@@ -133,8 +151,8 @@ def tulosta(elmjono, state, tiedosto, event):
             while elmjono.empty():
                 time.sleep(1)
                 laskuri = laskuri + 1
-                print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
-            print(elmjono.qsize())
+                # print("Tiedostoon kirjoitus odottaa dataa ("+ str(laskuri) + ")")
+            # print(elmjono.qsize())
             merkkijono = elmjono.get(block=False)
             print(merkkijono)
             tiedostopolku.write(f"{merkkijono}\n")
@@ -147,6 +165,8 @@ def aja():
     # obd.logger.setLevel(obd.logging.DEBUG)
     # connection = obd.OBD("/tmp/ttyBLE")  # , baudrate=None, protocol=None, fast=True, timeout=10)
     # elm327jono.put("ELM327_status: "+connection.status())
+    subprocess.call("./ble.sh", shell=True)
+    time.sleep(3)
     state = multiprocessing.Queue()
     jono = multiprocessing.Queue()
     event = Event()
@@ -157,7 +177,7 @@ def aja():
     kirjoittaminen.daemon = True
     gpslukeminen.daemon = True
     elm327.daemon = True
-    acceleroloop.daemon = True
+    acceleroloop.daemon = 							True
     gpslukeminen.start()
     elm327.start()
     acceleroloop.start()
