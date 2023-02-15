@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=buttonGUI
-Exec=/home/riveria/elm327/raspberry/ble-serial/ble-venv/bin/python3 /home/riveria/elm327/raspberry/elm327.py
-

@@ -1,5 +1,0 @@
-usage: ble-serial [-h] [-v] [-p PORT] [-t SEC] [-i ADAPTER] [-m MTU]
-                  [-d DEVICE] [-a {public,random}] [-s SERVICE_UUID]
-                  [-w WRITE_UUID] [-r READ_UUID] [--permit {ro,rw,wo}]
-                  [-l FILENAME] [-b]
-ble-serial: error: unrecognized arguments: -k ./ELM327.log

@@ -1,2 +1,0 @@
-import board
-dir(board)
