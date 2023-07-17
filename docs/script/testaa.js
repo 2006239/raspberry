@@ -39,12 +39,13 @@ function parsekorkeus(data) {
     var korkeus;
     for (let i = 0; i < data.length; i++) {
         sijainnit = data[i].querySelector("gps");
+        if(sijainnit != null){
         temp = sijainnit.querySelector("altitude");
         if (temp != null) {
             korkeus = parseFloat(temp.textContent);
             if (korkeus < merenpinnasta) { merenpinnasta = korkeus; }
             if (korkeinkohta < korkeus) { korkeinkohta = korkeus; }
-        }
+        }}
     }
 	return true;
 }
