@@ -194,7 +194,7 @@ function gpsnopeus() {
     var dataset = [];
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("gps");
-        speed = sijainnit.querySelector("speed");
+        speed = sijainnit.querySelector("gpsspeed");
         if (speed != null) {
             nopeus = parseInt(speed.textContent);
             edellinen = nopeus;
