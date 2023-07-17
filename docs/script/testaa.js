@@ -374,7 +374,7 @@ function drawChart(arvo) {
                 },
                 y1: {
                     beginAtZero: true,
-                    min: merenpinnasta,
+                    min: 0,//merenpinnasta,
                     max: korkeinkohta,
                     position: 'right',
                     // grid line settings
