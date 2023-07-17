@@ -160,7 +160,7 @@ function accelerometer() {
         }
         else
         {gvoima = edellinen;}
-        dataset.push(gvoima);
+        dataset.push(gvoima-9.821);
     }
     return dataset;
 }
