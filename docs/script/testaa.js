@@ -159,7 +159,7 @@ function accelerometer() {
         else
         {gvoima = edellinen;}
         dataset.push(gvoima-9.821);
-    }}else dataset.push(0);
+    }else dataset.push(0);}
     return dataset;
 }
 
@@ -180,7 +180,7 @@ function korkeus() {
             //if(korkeus !=0){altitude.push(parseFloat(korkeus));}//-merenpinnasta);}
             altitude.push(parseFloat(korkeus));
         }
-    }}else altitude.push(0);
+    }else altitude.push(0);}
     return altitude;
 }
 
@@ -201,7 +201,7 @@ function gpsnopeus() {
         }
         else nopeus = edellinen;
         dataset.push(nopeus);
-    }}else dataset.push(0);
+    }else dataset.push(0);}
     return dataset;
 }
 
@@ -374,7 +374,7 @@ function drawChart(arvo) {
                 },
                 y1: {
                     beginAtZero: true,
-                    min: 0,//merenpinnasta,
+                    min: 0, //merenpinnasta
                     max: korkeinkohta,
                     position: 'right',
                     // grid line settings
