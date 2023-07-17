@@ -99,6 +99,7 @@ function gps(merkkijono) {
     //console.log(cycle.length);
     for (let i = 0; i < updateylaraja; i++) {
         sijainnit = cycle[i].querySelector("gps");
+        if(sijainnit != null){
         lat = sijainnit.querySelector("lat").textContent;
         long = sijainnit.querySelector("lon").textContent;
         if (lat != null && long != null) {
@@ -124,7 +125,7 @@ function gps(merkkijono) {
             laskuri++;
         }
         vika = [lat, long];
-    }
+    }}
 
     var merkkijono = latlong.toString();
 
