@@ -150,8 +150,6 @@ function accelerometer() {
            x = sijainnit.querySelector("x");
     	   y = sijainnit.querySelector("y");
            z = sijainnit.querySelector("z");
-        }
-
         if (z != null && y != null && x !=null) {
  
             gvoima = Math.sqrt(Math.pow(parseFloat(x.textContent),2) + Math.pow(parseFloat(y.textContent),2) +Math.pow(parseFloat(z.textContent),2));
@@ -161,7 +159,7 @@ function accelerometer() {
         else
         {gvoima = edellinen;}
         dataset.push(gvoima-9.821);
-    }
+    }}else dataset.push(0);
     return dataset;
 }
 
@@ -171,7 +169,8 @@ function korkeus() {
     var altitude = [];
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("gps");
-        korkeus = sijainnit.querySelector("altitude");
+        if(sijainnit !=null){
+	korkeus = sijainnit.querySelector("altitude");
         if (korkeus != null) {
             edellinenkorkeus = korkeus.textContent;
             altitude.push(parseFloat(korkeus.textContent)); //-merenpinnasta);
@@ -181,7 +180,7 @@ function korkeus() {
             //if(korkeus !=0){altitude.push(parseFloat(korkeus));}//-merenpinnasta);}
             altitude.push(parseFloat(korkeus));
         }
-    }
+    }}else altitude.push(0);
     return altitude;
 }
 
@@ -194,14 +193,15 @@ function gpsnopeus() {
     var dataset = [];
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("gps");
-        speed = sijainnit.querySelector("gpsspeed");
+        if(sijainnit != null){
+	speed = sijainnit.querySelector("gpsspeed");
         if (speed != null) {
             nopeus = parseInt(speed.textContent);
             edellinen = nopeus;
         }
         else nopeus = edellinen;
         dataset.push(nopeus);
-    }
+    }}else dataset.push(0);
     return dataset;
 }
 
