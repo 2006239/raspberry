@@ -65,7 +65,7 @@ function parseXML(data) {
 function gps(merkkijono) {
     var luku = parseInt(merkkijono, 10) - 2;
 
-    var sijainnit, lat, long, eka, vika, korkeus;
+    var sijainnit, lat, long, eka, vika, korkeus,temp;
     var edellinenlat = 0;
     var edellinenlong = 0;
     var latlong = [];
@@ -104,22 +104,46 @@ function gps(merkkijono) {
             lat = sijainnit.querySelector("lat").textContent;
             long = sijainnit.querySelector("lon").textContent;
             if (lat != null && long != null) {
+                if (lat === 0 && long ===  0)
+		{latlong.push("[null,null]");}
+                else{/*
+		if(lat>edellinenlat+1 && edellinenlat!=0 && lat!=0 || lat<edellinenlat-1  && edellinenlat!=0 && lat!=0)
+		{
+                   lat = edellinenlat; 
+		}
+		if(long>edellinenlong+1 && edellinenlong!=0 || long<edellinenlong-1 && long!=0)
+		{
+                   long = edellinenlong; 
+		}*/
                 edellinenlat = lat;
                 edellinenlong = long;
+		if(lat != 0 && long != 0){
+                //console.log(lat +" "+long);
                 latlong.push("[" + long + "," + lat + "]");
+                }
+		}
             }
+
+	    if (edellinenlat === 0 && edellinenlong ===  0)
+		{edellinenlat = null;edellinenlong= null;}
             if (lat == null && long != null) {
                 lat = edellinenlat;
+		if(lat != 0 && long != 0){
                 latlong.push("[" + long + "," + lat + "]");
+		}
             }
             if (lat != null && long == null) {
                 long = edellinenlong;
-                latlong.push("[" + long + "," + lat + "]");
+                if(lat != 0 && long != 0){
+		latlong.push("[" + long + "," + lat + "]");
+		}
             }
             if (lat == null && long == null) {
                 long = edellinenlong;
                 lat = edellinenlat;
+		if(lat != 0 && long != 0){
                 latlong.push("[" + long + "," + lat + "]");
+		}
             }
             if (laskuri === 0) {
                 eka = [lat, long];
@@ -183,7 +207,7 @@ function accelerometer() {
  
                 gvoima = Math.sqrt(Math.pow(parseFloat(x.textContent),2) + Math.pow(parseFloat(y.textContent),2) +Math.pow(parseFloat(z.textContent),2));
      	        edellinen = gvoima;
-                console.log(gvoima);
+                //console.log(gvoima);
             }
             else{
                 gvoima = edellinen;
@@ -480,6 +504,7 @@ function DrawMap(eka, ajoreitti) {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
     this.route = L.geoJSON(ajoreitti[0]).addTo(map);
 
     return map;
@@ -489,9 +514,11 @@ function DrawMap(eka, ajoreitti) {
 function UpdatePage(slideri) {
     let reitti = gps(slideri);
     this.route.clearLayers();
+    //let data = reitti[0].geometry.coordinates[1];
+    //console.log(data);
     this.route = L.geoJSON(reitti[0]).addTo(this.map);
     this.map.setView(reitti[2]);
-    KaavioUpdate(updateChart(slideri), kaavio);A
+    KaavioUpdate(updateChart(slideri), kaavio);
 }
 
 var reader = new FileReader();
