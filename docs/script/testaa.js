@@ -40,12 +40,13 @@ function parsekorkeus(data) {
     for (let i = 0; i < data.length; i++) {
         sijainnit = data[i].querySelector("gps");
         if(sijainnit != null){
-        temp = sijainnit.querySelector("altitude");
-        if (temp != null) {
-            korkeus = parseFloat(temp.textContent);
-            if (korkeus < merenpinnasta) { merenpinnasta = korkeus; }
-            if (korkeinkohta < korkeus) { korkeinkohta = korkeus; }
-        }}
+            temp = sijainnit.querySelector("altitude");
+            if (temp != null) {
+                korkeus = parseFloat(temp.textContent);
+                if (korkeus < merenpinnasta) { merenpinnasta = korkeus; }
+                if (korkeinkohta < korkeus) { korkeinkohta = korkeus; }
+            }
+        }else{korkeinkohta=0;merenpinnasta=0;}
     }
 	return true;
 }
@@ -86,7 +87,7 @@ function gps(merkkijono) {
                     updatealaraja = updateylaraja - aloitusluku;
                 }
                 else {
-                    updataalaraja = 0;
+                    updatealaraja = 0;
                     updateylaraja = aloitusluku;
                 }
             }
@@ -100,42 +101,70 @@ function gps(merkkijono) {
     for (let i = 0; i < updateylaraja; i++) {
         sijainnit = cycle[i].querySelector("gps");
         if(sijainnit != null){
-        lat = sijainnit.querySelector("lat").textContent;
-        long = sijainnit.querySelector("lon").textContent;
-        if (lat != null && long != null) {
-            edellinenlat = lat;
-            edellinenlong = long;
-            latlong.push("[" + long + "," + lat + "]");
-        }
-        if (lat == null && long != null) {
-            lat = edellinenlat;
-            latlong.push("[" + long + "," + lat + "]");
-        }
-        if (lat != null && long == null) {
-            long = edellinenlong;
-            latlong.push("[" + long + "," + lat + "]");
-        }
-        if (lat == null && long == null) {
-            long = edellinenlong;
-            lat = edellinenlat;
-            latlong.push("[" + long + "," + lat + "]");
-        }
-        if (laskuri === 0) {
-            eka = [lat, long];
-            laskuri++;
-        }
-        vika = [lat, long];
-    }}
-
+            lat = sijainnit.querySelector("lat").textContent;
+            long = sijainnit.querySelector("lon").textContent;
+            if (lat != null && long != null) {
+                edellinenlat = lat;
+                edellinenlong = long;
+                latlong.push("[" + long + "," + lat + "]");
+            }
+            if (lat == null && long != null) {
+                lat = edellinenlat;
+                latlong.push("[" + long + "," + lat + "]");
+            }
+            if (lat != null && long == null) {
+                long = edellinenlong;
+                latlong.push("[" + long + "," + lat + "]");
+            }
+            if (lat == null && long == null) {
+                long = edellinenlong;
+                lat = edellinenlat;
+                latlong.push("[" + long + "," + lat + "]");
+            }
+            if (laskuri === 0) {
+                eka = [lat, long];
+                laskuri++;
+            }
+            vika = [lat, long];
+        }else{ eka = [0, 0]; latlong.push("[" + 0 + "," + 0 + "]");vika=[0,0];}
+    }
     var merkkijono = latlong.toString();
-
     var temp = '{"type": "Feature","geometry": {"type":  "LineString","coordinates": [' + merkkijono + ']},"properties":   {"name" : "ajoreitti"}}';
-
     ajoreitti[0] = JSON.parse(temp);
     ajoreitti[1] = eka;
     ajoreitti[2] = vika;
 
     return ajoreitti;
+}
+
+
+//float roll = ((roll-gyro.gyro.x*timeUsed)*19/20)+(((atan2(accel.acceleration.x, accel.acceleration.z)*180)/M_PI)*1/2);
+//float pitch = ((pitch+gyro.gyro.y*timeUsed)*19/20)+(((atan2(accel.acceleration.y, accel.acceleration.z)*180)/M_PI)*1/2);
+function magnetometer() {
+    var x,y,z,sijainnit;
+    var dataset = [];
+    var gvoima = 0;
+    edellinen = 0;
+
+    for (let j = updatealaraja; j < updateylaraja; j++) {
+        sijainnit = cycle[j].querySelector("magnetometer");
+	    if(sijainnit !=null){
+            x = sijainnit.querySelector("x");
+        	y = sijainnit.querySelector("y");
+            z = sijainnit.querySelector("z");
+            if (z != null && y != null && x !=null) {
+ 
+                x = parseFloat(x.textContent)*+.001;
+     	        y = parseFloat(y.textContent)*+.001;
+                z = parseFloat(z.textContent)*+.001;
+            }
+            else{
+                gvoima = edellinen;
+            }
+            dataset.push(gvoima-9.821);
+        }else dataset.push(0);
+    }
+    return dataset;
 }
 
 function accelerometer() {
@@ -147,19 +176,21 @@ function accelerometer() {
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("accelerometer");
 	    if(sijainnit !=null){
-           x = sijainnit.querySelector("x");
-    	   y = sijainnit.querySelector("y");
-           z = sijainnit.querySelector("z");
-        if (z != null && y != null && x !=null) {
+            x = sijainnit.querySelector("x");
+        	y = sijainnit.querySelector("y");
+            z = sijainnit.querySelector("z");
+            if (z != null && y != null && x !=null) {
  
-            gvoima = Math.sqrt(Math.pow(parseFloat(x.textContent),2) + Math.pow(parseFloat(y.textContent),2) +Math.pow(parseFloat(z.textContent),2));
- 	        edellinen = gvoima;
-            console.log(gvoima);
-        }
-        else
-        {gvoima = edellinen;}
-        dataset.push(gvoima-9.821);
-    }else dataset.push(0);}
+                gvoima = Math.sqrt(Math.pow(parseFloat(x.textContent),2) + Math.pow(parseFloat(y.textContent),2) +Math.pow(parseFloat(z.textContent),2));
+     	        edellinen = gvoima;
+                console.log(gvoima);
+            }
+            else{
+                gvoima = edellinen;
+            }
+            dataset.push(gvoima-9.821);
+        }else dataset.push(0);
+    }
     return dataset;
 }
 
@@ -170,17 +201,18 @@ function korkeus() {
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("gps");
         if(sijainnit !=null){
-	korkeus = sijainnit.querySelector("altitude");
-        if (korkeus != null) {
-            edellinenkorkeus = korkeus.textContent;
-            altitude.push(parseFloat(korkeus.textContent)); //-merenpinnasta);
-        }
-        if (korkeus == null) {
-            korkeus = edellinenkorkeus;
-            //if(korkeus !=0){altitude.push(parseFloat(korkeus));}//-merenpinnasta);}
-            altitude.push(parseFloat(korkeus));
-        }
-    }else altitude.push(0);}
+	        korkeus = sijainnit.querySelector("altitude");
+            if (korkeus != null) {
+                edellinenkorkeus = korkeus.textContent;
+                altitude.push(parseFloat(korkeus.textContent)); //-merenpinnasta);
+            }
+            if (korkeus == null) {
+                korkeus = edellinenkorkeus;
+                //if(korkeus !=0){altitude.push(parseFloat(korkeus));}//-merenpinnasta);}
+                altitude.push(parseFloat(korkeus));
+            }
+        }else altitude.push(0);
+    }
     return altitude;
 }
 
@@ -194,14 +226,15 @@ function gpsnopeus() {
     for (let j = updatealaraja; j < updateylaraja; j++) {
         sijainnit = cycle[j].querySelector("gps");
         if(sijainnit != null){
-	speed = sijainnit.querySelector("gpsspeed");
-        if (speed != null) {
-            nopeus = parseInt(speed.textContent);
-            edellinen = nopeus;
-        }
-        else nopeus = edellinen;
-        dataset.push(nopeus);
-    }else dataset.push(0);}
+	        speed = sijainnit.querySelector("gpsspeed");
+            if (speed != null) {
+                nopeus = parseInt(speed.textContent);
+                edellinen = nopeus;
+            }
+            else nopeus = edellinen;
+            dataset.push(nopeus);
+        }else dataset.push(0);
+    }
     return dataset;
 }
 
@@ -458,7 +491,7 @@ function UpdatePage(slideri) {
     this.route.clearLayers();
     this.route = L.geoJSON(reitti[0]).addTo(this.map);
     this.map.setView(reitti[2]);
-    KaavioUpdate(updateChart(slideri), kaavio);
+    KaavioUpdate(updateChart(slideri), kaavio);A
 }
 
 var reader = new FileReader();
@@ -471,8 +504,6 @@ file.addEventListener("change", function () {
   }
   reader.readAsText(this.files[0]);
 });
-
-
 
 
 
