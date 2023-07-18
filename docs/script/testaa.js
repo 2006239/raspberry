@@ -107,7 +107,7 @@ function gps(merkkijono) {
                 if (lat === 0 && long ===  0)
 		{latlong.push("[null,null]");}
                 else{/*
-		if(lat>edellinenlat+1 && edellinenlat!=0 && lat!=0 || lat<edellinenlat-1  && edellinenlat!=0 && lat!=0)
+		if(lat>edellinenlat+1||lat<edellinenlat-1)
 		{
                    lat = edellinenlat; 
 		}
