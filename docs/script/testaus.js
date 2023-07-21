@@ -1,3 +1,5 @@
+luku = 1;
+lukuplus=380;
 var kaavio;
 var aloitusluku = 30;
 var sijainti = 0;
@@ -33,13 +35,8 @@ var highx = 0;
 var highy = 0;
 var lowx = 0;
 var lowy = 0;
-/*
-if ("serial" in navigator) {
-  const port = await navigator.serial.requestPort();
-  await port.open({ baudRate: 115200 });
-  const reader = port.readable.getReader();
-}
-*/
+var datamerkkijono = "";
+
 
 function parsekorkeus(data) {
     var sijainnit;
@@ -58,20 +55,34 @@ function parsekorkeus(data) {
 	return true;
 }
 
+function parseXMLs(data) {
+  var parser = new DOMParser();
+  this.xml = parser.parseFromString(data, "text/xml");
+  //console.log(xml);
+  this.cycle = this.xml.getElementsByTagName("cycle");
+  if(this.cycle!=null){
+	  slider.setAttribute("max", this.cycle.length/paivitysarvo);
+	  slider.setAttribute("value", aloitusluku);
+	  parsekorkeus(this.cycle);
+	  return this.xml;
+  }
+}
 function parseXML(data) {
   var parser = new DOMParser();
   this.xml = parser.parseFromString(data.target.result, "text/xml");
   this.cycle = this.xml.getElementsByTagName("cycle");
-  slider.setAttribute("max", this.cycle.length/paivitysarvo);
-  slider.setAttribute("value", aloitusluku);
-  parsekorkeus(this.cycle);
-  return this.xml;
-}
+  //console.log("cycle");
+  if(this.cycle!=null){
+	  slider.setAttribute("max", this.cycle.length/paivitysarvo);
+	  slider.setAttribute("value", aloitusluku);
+	  parsekorkeus(this.cycle);
+	  return this.xml;
+  }
 
+}
 
 function gps(merkkijono) {
     var luku = parseInt(merkkijono, 10) - 2;
-
     var sijainnit, lat, long, eka, vika, korkeus,temp;
     var edellinenlat = 0;
     var edellinenlong = 0;
@@ -81,7 +92,6 @@ function gps(merkkijono) {
     updateylaraja = updateraja;
     if (luku < cycle.length - 1) {
         if (luku < aloitusluku) {
-
             updatealaraja = 0;
             updateylaraja = aloitusluku;
         }
@@ -105,8 +115,10 @@ function gps(merkkijono) {
     }
     vanhaarvo = luku;
     //console.log(cycle.length);
+    //console.log(updateylaraja);
     for (let i = 0; i < updateylaraja; i++) {
         sijainnit = cycle[i].querySelector("gps");
+        //console.log(sijainnit);
         if(sijainnit != null){
             lat = sijainnit.querySelector("lat").textContent;
             long = sijainnit.querySelector("lon").textContent;
@@ -160,6 +172,7 @@ function gps(merkkijono) {
         }else{ eka = [0, 0]; latlong.push("[" + 0 + "," + 0 + "]");vika=[0,0];}
     }
     var merkkijono = latlong.toString();
+    //console.log(merkkijono);
     var temp = '{"type": "Feature","geometry": {"type":  "LineString","coordinates": [' + merkkijono + ']},"properties":   {"name" : "ajoreitti"}}';
     ajoreitti[0] = JSON.parse(temp);
     ajoreitti[1] = eka;
@@ -168,9 +181,91 @@ function gps(merkkijono) {
     return ajoreitti;
 }
 
+function gpss(luku) {
+    var sijainnit, lat, long, eka, vika, korkeus,temp;
+    var edellinenlat = 0;
+    var edellinenlong = 0;
+    var latlong = [];
+    var ajoreitti = [];
+    var laskuri = 0;
+    slider.value = luku;
+    if(luku < aloitusluku){
+    updateylaraja = luku;
+    updatealaraja = 0;
+    }
+    else{
+    updateylaraja = luku;
+    updatealaraja = luku-aloitusluku;
+    }
+    vanhaarvo = luku;
+    for (let i = 0; i < updateylaraja; i++) {
+        sijainnit = cycle[i].querySelector("gps");
+        //console.log(sijainnit);
+        if(sijainnit != null){
+            lat = sijainnit.querySelector("lat").textContent;
+            long = sijainnit.querySelector("lon").textContent;
+            if (lat != null && long != null) {
+                if (lat === 0 && long ===  0)
+		{latlong.push("[null,null]");}
+                else{/*
+		if(lat>edellinenlat+1||lat<edellinenlat-1)
+		{
+                   lat = edellinenlat; 
+		}
+		if(long>edellinenlong+1 && edellinenlong!=0 || long<edellinenlong-1 && long!=0)
+		{
+                   long = edellinenlong; 
+		}*/
+                edellinenlat = lat;
+                edellinenlong = long;
+		if(lat != 0 && long != 0){
+                //console.log(lat +" "+long);
+                latlong.push("[" + long + "," + lat + "]");
+                }
+		}
+            }
+
+	    if (edellinenlat === 0 && edellinenlong ===  0)
+		{edellinenlat = null;edellinenlong= null;}
+            if (lat == null && long != null) {
+                lat = edellinenlat;
+		if(lat != 0 && long != 0){
+                latlong.push("[" + long + "," + lat + "]");
+		}
+            }
+            if (lat != null && long == null) {
+                long = edellinenlong;
+                if(lat != 0 && long != 0){
+		latlong.push("[" + long + "," + lat + "]");
+		}
+            }
+            if (lat == null && long == null) {
+                long = edellinenlong;
+                lat = edellinenlat;
+		if(lat != 0 && long != 0){
+                latlong.push("[" + long + "," + lat + "]");
+		}
+            }
+            if (laskuri === 0) {
+                eka = [lat, long];
+                laskuri++;
+            }
+            vika = [lat, long];
+        }else{ eka = [0, 0]; latlong.push("[" + 0 + "," + 0 + "]");vika=[0,0];}
+    }
+    var merkkijono = latlong.toString();
+    //console.log(merkkijono);
+    var temp = '{"type": "Feature","geometry": {"type":  "LineString","coordinates": [' + merkkijono + ']},"properties":   {"name" : "ajoreitti"}}';
+    ajoreitti[0] = JSON.parse(temp);
+    ajoreitti[1] = eka;
+    ajoreitti[2] = vika;
+
+    return ajoreitti;
+}
 
 //float roll = ((roll-gyro.gyro.x*timeUsed)*19/20)+(((atan2(accel.acceleration.x, accel.acceleration.z)*180)/M_PI)*1/2);
 //float pitch = ((pitch+gyro.gyro.y*timeUsed)*19/20)+(((atan2(accel.acceleration.y, accel.acceleration.z)*180)/M_PI)*1/2);
+
 function magnetometer() {
     var x,y,z,sijainnit;
     var dataset = [];
@@ -528,19 +623,90 @@ function UpdatePage(slideri) {
     KaavioUpdate(updateChart(slideri), kaavio);
 }
 
+
 var reader = new FileReader();
 file.addEventListener("change", function () {
   reader.onload = function (data) {
     parseXML(data);
     let reitti = gps(arvo);
     kartta = DrawMap(reitti[1], reitti[0])
-    kaavio = new Chart(chart, drawChart(raja));
+    kaavio = new Chart(chart, drawChart(raja));  
+
   }
   reader.readAsText(this.files[0]);
 });
 
+const button2 = document.getElementById('btnSerial');
+button2.addEventListener('click', async () => {
+  await navigator.serial.requestPort().then(async (port)=> {
+         await port.open({ baudRate: 115200 });
+         const reader = port.readable.getReader();
+         var laskuri = 1;
+         var tosi = false;
+         var tosi2 = true;
+         var eka = true;
+         var parse = "";
+         while (true) {
+         const { value, done } = await reader.read();
+         datamerkkijono += new TextDecoder().decode(value);
+         if(datamerkkijono.indexOf("</cycle>")+luku>luku){
+           
+           if(eka){
+              datamerkkijono = datamerkkijono.slice(datamerkkijono.indexOf("<cycle>"));
+              luku = datamerkkijono.indexOf("</cycle>")+8;
+              tosi = true;
+              eka = false;
+           } 
+           else if(datamerkkijono.indexOf("</cycle>", luku+1)>luku){
+              luku = datamerkkijono.indexOf("</cycle>", luku+1);
+              tosi = true;
+           }
+	   //console.log("luku" +luku);
+           //console.log(datamerkkijono);
+         }
+         if(tosi)
+         {
+	   if(datamerkkijono.length>luku){
+	   datajono = datamerkkijono.slice(0, datamerkkijono.lastIndexOf("</cycle>")+8);
+           //jono = datajono.slice(datajono.indexOf("<cycle>"));
+           //console.log(jono);
 
-
+           parse = "<data>" +datajono+ "</data>";
+           //console.log(parse);
+           parseXMLs(parse);
+           let reitti = gpss(laskuri);
+	   
+           //console.log(reitti);
+           if(tosi2){
+              tosi2 = false;     
+              kartta = DrawMap(reitti[1], reitti[0])
+              kaavio = new Chart(chart, drawChart(raja));     
+           }
+           else{
+              this.route.clearLayers();
+              this.route = L.geoJSON(reitti[0]).addTo(this.map);
+              this.map.setView(reitti[2]);
+              KaavioUpdate(updateChart(laskuri), kaavio);
+           }
+	   laskuri = laskuri + 1;
+           tosi = false;
+        }
+        
+        }
+        
+        if (done) {
+           // Allow the serial port to be closed later.
+           reader.releaseLock();
+           break;
+        }
+ 
+  // value is a string.
+       
+   }}).catch((e) => {
+      console.log("yhteys katkesi.");
+      console.log(e);
+         });
+})
 
 
 
